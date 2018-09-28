@@ -17,8 +17,10 @@ import NavStore from '../../../AppStores/NavStore'
 import AppSetting from '../../Setting/elements/AppSetting'
 import AppSettingStore from '../stores/AppSettingStore'
 import LayoutUtils from '../../../commons/LayoutUtils'
+import MainStore from '../../../AppStores/MainStore'
 
 const statusBarHeight = LayoutUtils.getExtraTop()
+
 @observer
 export default class SettingScreen extends Component {
   static propTypes = {
@@ -34,11 +36,6 @@ export default class SettingScreen extends Component {
     this.settingStore = new SettingStore()
     this.appSettingStore = new AppSettingStore()
   }
-
-  componentDidMount() {
-
-  }
-
   onManageWalletPress = () => {
     NavStore.pushToScreen('ManageWalletScreen')
   }
@@ -53,9 +50,16 @@ export default class SettingScreen extends Component {
     Platform.OS === 'ios' ? Permissions.openSettings() : Linking.openURL('settings://notification/golden')
   }
 
-  // onNotificationSwitch = (isEnable) => {
-  //   this.appSettingStore.switchEnableNotification(isEnable)
-  // }
+  onSwitchFaceTouchID = () => {
+    MainStore.appState.onSwitchFaceTouchID()
+  }
+
+  getTextFromBiometryType = (biometryType) => {
+    if (biometryType === 'FaceID') {
+      return 'Unlock With Face ID'
+    }
+    return 'Unlock With Touch ID'
+  }
 
   renderCommunity = () => (
     <FlatList
@@ -77,25 +81,43 @@ export default class SettingScreen extends Component {
     />
   )
 
-  renderSecurity = () => (
-    <FlatList
-      style={{ flex: 1 }}
-      ListHeaderComponent={<Text style={styles.titleText}>Security</Text>}
-      data={this.settingStore.dataSecurity}
-      keyExtractor={v => v.mainText}
-      scrollEnabled={false}
-      renderItem={({ item, index }) =>
-        (
-          <SettingItem
-            style={{ borderTopWidth: index === 0 ? 0 : 1 }}
-            mainText={item.mainText}
-            onPress={item.onPress}
-            iconRight={item.iconRight}
-          />
-        )
-      }
-    />
-  )
+  renderSecurity = () => {
+    const { enableTouchFaceID } = MainStore.appState
+    const { biometryType } = MainStore.appState
+    return (
+      <FlatList
+        style={{ flex: 1 }}
+        ListHeaderComponent={<Text style={styles.titleText}>Security</Text>}
+        data={this.settingStore.dataSecurity}
+        keyExtractor={v => v.mainText}
+        scrollEnabled={false}
+        renderItem={({ item, index }) => {
+          if (index == 1) {
+            if (biometryType != '' || (Platform.OS == 'android' && biometryType == true)) {
+              return (
+                <SettingItem
+                  mainText={this.getTextFromBiometryType(biometryType)}
+                  disable
+                  type="switch"
+                  enableSwitch={enableTouchFaceID}
+                  onSwitch={this.onSwitchFaceTouchID}
+                />
+              )
+            }
+            return null
+          }
+          return (
+            <SettingItem
+              style={{ borderTopWidth: index === 0 ? 0 : 1 }}
+              mainText={item.mainText}
+              onPress={item.onPress}
+              iconRight={item.iconRight}
+            />
+          )
+        }}
+      />
+    )
+  }
 
   renderAppSetting = () => (
     <View>

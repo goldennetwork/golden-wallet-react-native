@@ -28,4 +28,4 @@ class MainStore {
   }
 }
 
-export default new MainStore
+export default new MainStore()
