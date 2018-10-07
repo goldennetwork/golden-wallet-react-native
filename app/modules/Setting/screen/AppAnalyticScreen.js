@@ -37,7 +37,8 @@ export default class AppAnalyticScreen extends Component {
   }
   onShare = () => {
     MainStore.appState.setAllowDailyUsage(true)
-    this.goBack()
+    NavStore.goBack()
+    this.props.navigation.state.params.onBack()
   }
 
   render() {
