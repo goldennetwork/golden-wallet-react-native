@@ -73,7 +73,7 @@ export default class HomeScreen extends Component {
     if (!NotificationStore.isInitFromNotification) {
       if (this.shouldShowUpdatePopup) {
         this._gotoNewUpdatedAvailableScreen()
-      } else if (MainStore.appState.allowDailyUsage === undefined) {
+      } else if (MainStore.appState.allowDailyUsage === null) {
         this._gotoAppAnalytics()
       } else if (MainStore.appState.wallets.length === 0) {
         this._gotoCreateWallet()
@@ -206,7 +206,7 @@ export default class HomeScreen extends Component {
     )
 
   _gotoCreateWallet = () => {
-    if (MainStore.appState.wallets.length > 0) return
+    // if (MainStore.appState.wallets.length > 0) return
     NavStore.pushToScreen('CreateWalletStack')
   }
 
