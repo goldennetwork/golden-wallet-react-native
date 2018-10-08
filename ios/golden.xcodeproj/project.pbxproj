@@ -347,13 +347,6 @@
 			remoteGlobalIDString = 58B5119B1A9E6C1200147676;
 			remoteInfo = RCTText;
 		};
-		9A907153215E3CBB00CA7A89 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9A90714F215E3CBB00CA7A89 /* TouchID.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 134814201AA4EA6300B7C361;
-			remoteInfo = TouchID;
-		};
 		92C273F0215E97AF00B43331 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 92C273EC215E97AF00B43331 /* RNMixpanel.xcodeproj */;
@@ -367,6 +360,13 @@
 			proxyType = 2;
 			remoteGlobalIDString = 5EAEEA411F0555B100C6FED8;
 			remoteInfo = "RNMixpanel-tvOS";
+		};
+		9A907153215E3CBB00CA7A89 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9A90714F215E3CBB00CA7A89 /* TouchID.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = TouchID;
 		};
 		ADBDB9261DFEBF0700ED6528 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -527,13 +527,13 @@
 		88F169A6A1CA4A6F9BFBF2AA /* RNFS.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNFS.xcodeproj; path = "../node_modules/react-native-fs/RNFS.xcodeproj"; sourceTree = "<group>"; };
 		8E415F1E67F64BDBA5B7BD25 /* SplashScreen.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = SplashScreen.xcodeproj; path = "../node_modules/react-native-splash-screen/ios/SplashScreen.xcodeproj"; sourceTree = "<group>"; };
 		90BEE45DF2F640B2BE167CC0 /* OpenSans-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-Light.ttf"; path = "../App/assets/fonts/OpenSans-Light.ttf"; sourceTree = "<group>"; };
-		9A90714F215E3CBB00CA7A89 /* TouchID.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = TouchID.xcodeproj; path = "../Libs/react-native-touch-id/TouchID.xcodeproj"; sourceTree = "<group>"; };
 		92C272D8215E8E8500B43331 /* libMixpanel.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libMixpanel.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		92C2730F215E8E8C00B43331 /* libreact-native-mixpanel.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libreact-native-mixpanel.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		92C27311215E90C600B43331 /* libreact-native-mixpanel.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libreact-native-mixpanel.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		92C273CF215E957E00B43331 /* libMixpanel.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libMixpanel.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		92C273D1215E95A800B43331 /* libMixpanel.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libMixpanel.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		92C273EC215E97AF00B43331 /* RNMixpanel.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNMixpanel.xcodeproj; path = "../node_modules/react-native-mixpanel/RNMixpanel.xcodeproj"; sourceTree = "<group>"; };
+		9A90714F215E3CBB00CA7A89 /* TouchID.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = TouchID.xcodeproj; path = "../Libs/react-native-touch-id/TouchID.xcodeproj"; sourceTree = "<group>"; };
 		9FC9C43CDFA04329BD39361B /* OpenSans-Italic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-Italic.ttf"; path = "../App/assets/fonts/OpenSans-Italic.ttf"; sourceTree = "<group>"; };
 		A30AE93A4A724E86A070C775 /* OpenSans-SemiboldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-SemiboldItalic.ttf"; path = "../App/assets/fonts/OpenSans-SemiboldItalic.ttf"; sourceTree = "<group>"; };
 		A4E768AD4421420F9A5416DF /* OpenSans-Semibold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-Semibold.ttf"; path = "../App/assets/fonts/OpenSans-Semibold.ttf"; sourceTree = "<group>"; };
@@ -877,19 +877,19 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		9A907150215E3CBB00CA7A89 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				9A907154215E3CBB00CA7A89 /* libTouchID.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		92C273ED215E97AF00B43331 /* Products */ = {
 			isa = PBXGroup;
 			children = (
 				92C273F1215E97AF00B43331 /* libRNMixpanel.a */,
 				92F1A7F2216464CD000DC3C8 /* libRNMixpanel-tvOS.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9A907150215E3CBB00CA7A89 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9A907154215E3CBB00CA7A89 /* libTouchID.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1537,13 +1537,6 @@
 			remoteRef = 832341B41AAA6A8300B99B32 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		9A907154215E3CBB00CA7A89 /* libTouchID.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libTouchID.a;
-			remoteRef = 9A907153215E3CBB00CA7A89 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		92C273F1215E97AF00B43331 /* libRNMixpanel.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1556,6 +1549,13 @@
 			fileType = archive.ar;
 			path = "libRNMixpanel-tvOS.a";
 			remoteRef = 92F1A7F1216464CD000DC3C8 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9A907154215E3CBB00CA7A89 /* libTouchID.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libTouchID.a;
+			remoteRef = 9A907153215E3CBB00CA7A89 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */ = {
