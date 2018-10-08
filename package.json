@@ -71,7 +71,6 @@
     "react-native-store-review": "^0.1.5",
     "react-native-swipeable": "^0.6.0",
     "react-native-swiper": "^1.5.13",
-    "react-native-touch-id": "^4.0.1",
     "react-native-view-shot": "^2.4.0",
     "react-native-webview-bridge-updated": "git+https://github.com/HungNguyenBao/react-native-webview-bridge.git",
     "react-navigation": "^2.11.2",

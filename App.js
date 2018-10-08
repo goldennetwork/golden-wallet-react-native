@@ -10,8 +10,10 @@ import {
   View,
   AppState,
   Keyboard,
-  NetInfo
+  NetInfo,
+  Platform
 } from 'react-native'
+import TouchID from 'react-native-touch-id'
 import crashlytics from 'react-native-fabric-crashlytics'
 import Router from './app/Router'
 import currencyStore from './app/AppStores/CurrencyStore'
@@ -32,6 +34,12 @@ export default class App extends Component {
       'connectionChange',
       this.handleFirstConnectivityChange
     )
+    if (MainStore.appState.biometryType == '' || (Platform.OS == 'android' && MainStore.appState.biometryType == false)) {
+      TouchID.isSupported()
+        .then((biometryType) => {
+          MainStore.appState.setBiometryType(biometryType)
+        })
+    }
   }
 
   async componentDidMount() {
@@ -98,7 +106,8 @@ export default class App extends Component {
             NotificationStore.isOpenFromTray = false
             NotificationStore.gotoTransaction()
           }
-        }
+        },
+        isLaunchApp: true
       })
     }
     this.appState = nextAppState

@@ -17,9 +17,22 @@ import UnlockStore from '../UnlockStore'
 import DisableView from '../elements/DisableView'
 import AppStyle from '../../../commons/AppStyle'
 import Keyboard from '../elements/Keyboard'
+import MainStore from '../../../AppStores/MainStore'
+import NavStore from '../../../AppStores/NavStore'
+import HapticHandler from '../../../Handler/HapticHandler'
+import TouchID from '../../../../Libs/react-native-touch-id'
 
 const { height } = Dimensions.get('window')
 const isSmallScreen = height < 569
+
+const optionalConfigObject = {
+  title: 'Authentication Required', // Android
+  color: '#e00606', // Android
+  sensorDescription: 'Touch sensor', // Android
+  cancelText: 'Cancel', // Android
+  fallbackLabel: 'Show Passcode', // iOS (if empty, then label is hidden)
+  unifiedErrors: false // use unified error messages (default false)
+}
 
 @observer
 export default class UnlockScreen extends Component {
@@ -39,8 +52,15 @@ export default class UnlockScreen extends Component {
 
   componentDidMount() {
     UnlockStore.setup()
+    const { params } = this.props.navigation.state
+    const { appState } = MainStore
     if (Platform.OS === 'android') {
       BackHandler.addEventListener('hardwareBackPress', this.handleBackPress)
+      if (appState.biometryType && appState.enableTouchFaceID && params.isLaunchApp) {
+        this.showPromptTouchFaceID()
+      }
+    } else if (appState.biometryType != '' && appState.enableTouchFaceID && params.isLaunchApp) {
+      this.showPromptTouchFaceID()
     }
   }
 
@@ -53,6 +73,24 @@ export default class UnlockScreen extends Component {
   get shouldShowDisableView() {
     const { wrongPincodeCount, timeRemaining } = UnlockStore
     return wrongPincodeCount > 5 && timeRemaining > 0
+  }
+
+  handleSuccessTouchFaceID = () => {
+    UnlockStore.data.pincode = '000000'
+    setTimeout(() => {
+      UnlockStore.resetDisable()
+      HapticHandler.NotificationSuccess()
+      NavStore.goBack()
+    }, 250)
+  }
+
+  showPromptTouchFaceID = () => {
+    setTimeout(() => {
+      TouchID.authenticate('Unlock your Golden', optionalConfigObject)
+        .then((success) => {
+          this.handleSuccessTouchFaceID()
+        })
+    }, 800)
   }
 
   handleBackPress = () => {

@@ -131,6 +131,7 @@ class UnlockStore {
         MigrateData.getItem('USER_WALLET_ENCRYPTED')
           .then((oldData) => {
             if (oldData) {
+              // alert(this.data.pinConfirm)
               this._handelMigrateData().then(res => resolve(res))
             } else if (MainStore.appState.hasPassword) {
               this._handleCheckPincode().then(res => resolve(res))
@@ -219,7 +220,6 @@ class UnlockStore {
       unlockDes: 'Confirm your Pincode',
       pincode: ''
     })
-
     PushNotificationHelper.getToken().then((token) => {
       if (token) {
         api.initNotification([], token)
