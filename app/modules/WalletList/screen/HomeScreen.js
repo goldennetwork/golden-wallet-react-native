@@ -289,7 +289,6 @@ export default class HomeScreen extends Component {
 
   render() {
     const { translateY } = this
-    const { selectedWallet } = MainStore.appState
     const changeOpacityListCoin = translateY.interpolate({
       inputRange: [0, 1],
       outputRange: [1, 0],

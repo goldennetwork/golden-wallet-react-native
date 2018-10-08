@@ -18,10 +18,9 @@ import AppStyle from '../../../commons/AppStyle'
 import CreateWalletStore from '../CreateWalletStore'
 import Spinner from '../../../components/elements/Spinner'
 import constant from '../../../commons/constant'
-import TouchOutSideDismissKeyboard from '../../../components/elements/TouchOutSideDismissKeyboard'
 
 const { width } = Dimensions.get('window')
-const marginTop = LayoutUtils.getExtraTopAndroid()
+const marginTop = LayoutUtils.getExtraTop()
 
 @observer
 export default class EnterNameScreen extends Component {
@@ -66,34 +65,32 @@ export default class EnterNameScreen extends Component {
     const { title, loading, isReadCreate } = this.createWalletStore
     return (
       <SafeAreaView style={{ flex: 1 }}>
-        <TouchOutSideDismissKeyboard >
-          <View style={styles.container}>
-            <NavigationHeader
-              style={{ marginTop: marginTop + 20, width }}
-              headerItem={{
-                title: 'Type Your Wallet Name',
-                icon: null,
-                button: images.closeButton
-              }}
-              action={this.handleBack}
-            />
-            <InputWithAction
-              autoFocus
-              style={{ width: width - 40, marginTop: 25 }}
-              value={title}
-              onChangeText={this.onChangeText}
-            />
-            {this.renderErrorField()}
-            <BottomButton
-              disable={!isReadCreate}
-              text="Create"
-              onPress={this.handleCreate}
-            />
-            {loading &&
-              <Spinner />
-            }
-          </View>
-        </TouchOutSideDismissKeyboard>
+        <View style={styles.container}>
+          <NavigationHeader
+            style={{ marginTop: marginTop + 20, width }}
+            headerItem={{
+              title: 'Type Your Wallet Name',
+              icon: null,
+              button: images.backButton
+            }}
+            action={this.handleBack}
+          />
+          <InputWithAction
+            autoFocus
+            style={{ width: width - 40, marginTop: 25 }}
+            value={title}
+            onChangeText={this.onChangeText}
+          />
+          {this.renderErrorField()}
+          <BottomButton
+            disable={!isReadCreate}
+            text="Create"
+            onPress={this.handleCreate}
+          />
+          {loading &&
+            <Spinner />
+          }
+        </View>
       </SafeAreaView>
     )
   }
