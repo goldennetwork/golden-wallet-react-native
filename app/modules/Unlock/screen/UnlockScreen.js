@@ -20,19 +20,10 @@ import Keyboard from '../elements/Keyboard'
 import MainStore from '../../../AppStores/MainStore'
 import NavStore from '../../../AppStores/NavStore'
 import HapticHandler from '../../../Handler/HapticHandler'
-import TouchID from '../../../../Libs/react-native-touch-id'
+import BiometryHandler from '../../../Handler/BiometryHandler'
 
 const { height } = Dimensions.get('window')
 const isSmallScreen = height < 569
-
-const optionalConfigObject = {
-  title: 'Authentication Required', // Android
-  color: '#e00606', // Android
-  sensorDescription: 'Touch sensor', // Android
-  cancelText: 'Cancel', // Android
-  fallbackLabel: 'Show Passcode', // iOS (if empty, then label is hidden)
-  unifiedErrors: false // use unified error messages (default false)
-}
 
 @observer
 export default class UnlockScreen extends Component {
@@ -85,12 +76,7 @@ export default class UnlockScreen extends Component {
   }
 
   showPromptTouchFaceID = () => {
-    setTimeout(() => {
-      TouchID.authenticate('Unlock your Golden', optionalConfigObject)
-        .then((success) => {
-          this.handleSuccessTouchFaceID()
-        })
-    }, 800)
+    BiometryHandler.show(this.handleSuccessTouchFaceID)
   }
 
   handleBackPress = () => {

@@ -15,7 +15,7 @@ import NotificationStore from './stores/Notification'
 class AppState {
   dataVersion = '1'
   @observable.ref biometryType = ''
-  @observable enableTouchFaceID = true
+  @observable enableTouchFaceID = null
   @observable config = new Config('mainnet', Constants.INFURA_API_KEY)
   @observable defaultWallet = null // for web3 dapp
   @observable selectedWallet = null // for sending transaction
@@ -68,10 +68,11 @@ class AppState {
     this.BgJobs.CheckPendingTransaction.start()
   }
 
-  @action onSwitchFaceTouchID = () => {
-    this.enableTouchFaceID = !this.enableTouchFaceID
+  @action setEnableTouchFaceID = (enable) => {
+    this.enableTouchFaceID = enable
     this.save()
   }
+
   @action setBiometryType = (biometryType) => {
     this.biometryType = biometryType
     this.save()
@@ -199,7 +200,7 @@ class AppState {
     this.config = new Config(data.config.network, data.config.infuraKey)
     this.hasPassword = data.hasPassword
     this.didBackup = data.didBackup
-    this.enableTouchFaceID = data.enableTouchFaceID || false
+    this.enableTouchFaceID = data.enableTouchFaceID
     this.biometryType = data.biometryType || ''
     this.currentWalletIndex = data.currentWalletIndex || 0
     this.currentBTCWalletIndex = data.currentBTCWalletIndex || 0

@@ -142,6 +142,7 @@ export default class PopupCustom extends Component {
     const buttonsView = buttons.map((btn, index) => {
       let disable = false
       let styleTextDisable = {}
+      let textStyle = {}
       if (index === 1 && type === 'input' && (valueInput === '' || errorMsg !== '')) {
         disable = true
         styleTextDisable = { color: AppStyle.secondaryTextColor }
@@ -153,6 +154,9 @@ export default class PopupCustom extends Component {
           disable = false
           styleTextDisable = { color: AppStyle.mainColor }
         }
+      }
+      if (btn.text.length > 7) {
+        textStyle = { fontSize: 14 }
       }
       const lineBetween = index > 0
         ? <View style={styles.line} />
@@ -173,7 +177,7 @@ export default class PopupCustom extends Component {
             onPress={() => { btn.onClick(valueInput) }}
           >
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-              <Text style={[styles.textButton, styleTextDisable]}>{btn.text}</Text>
+              <Text style={[styles.textButton, styleTextDisable, textStyle]}>{btn.text}</Text>
             </View>
           </TouchableOpacity>
         </View>

@@ -18,6 +18,7 @@ import AppSetting from '../../Setting/elements/AppSetting'
 import AppSettingStore from '../stores/AppSettingStore'
 import LayoutUtils from '../../../commons/LayoutUtils'
 import MainStore from '../../../AppStores/MainStore'
+import BiometryHandler from '../../../Handler/BiometryHandler'
 
 const statusBarHeight = LayoutUtils.getExtraTop()
 
@@ -50,8 +51,10 @@ export default class SettingScreen extends Component {
     Platform.OS === 'ios' ? Permissions.openSettings() : Linking.openURL('settings://notification/golden')
   }
 
-  onSwitchFaceTouchID = () => {
-    MainStore.appState.onSwitchFaceTouchID()
+  onSwitchFaceTouchID = (enable) => {
+    BiometryHandler.show(
+      () => MainStore.appState.setEnableTouchFaceID(enable)
+    )
   }
 
   getTextFromBiometryType = (biometryType) => {
