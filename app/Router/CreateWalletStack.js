@@ -12,6 +12,7 @@ import WalletTypeImportScreen from '../modules/WalletImport/screen/ImportTypeWal
 import WalletTypeCreateScreen from '../modules/WalletCreate/screen/WalletTypeCreateScreen'
 import EnterNameViaPrivateKey from '../modules/WalletImport/screen/EnterNameViaPrivateKey'
 import EnterNameViaAddress from '../modules/WalletImport/screen/EnterNameViaAddress'
+import EnterNameScreen from '../modules/WalletCreate/screen/EnterNameScreen'
 
 const CreateWalletStack = StackNavigator(
   {
@@ -83,6 +84,12 @@ const CreateWalletStack = StackNavigator(
     },
     WalletTypeCreateScreen: {
       screen: WalletTypeCreateScreen,
+      navigationOptions: {
+        header: null
+      }
+    },
+    EnterNameScreen: {
+      screen: EnterNameScreen,
       navigationOptions: {
         header: null
       }
