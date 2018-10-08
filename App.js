@@ -39,6 +39,7 @@ export default class App extends Component {
         .then((biometryType) => {
           MainStore.appState.setBiometryType(biometryType)
         })
+        .catch(_ => MainStore.appState.setBiometryType(''))
     }
   }
 
@@ -82,9 +83,7 @@ export default class App extends Component {
 
   _handleAppStateChange = (nextAppState) => {
     if (this.appState === 'active' && nextAppState === 'inactive') {
-      if (NavStore.currentRouteName !== 'UnlockScreen') {
-        this.blind.showBlind()
-      }
+      this.blind.showBlind()
     }
     if (nextAppState === 'inactive' || nextAppState === 'background') {
       Keyboard.dismiss()
