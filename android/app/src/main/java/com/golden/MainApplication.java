@@ -4,6 +4,7 @@ import android.app.Application;
 import com.skyward.NotificationManager.NotificationManager;
 import com.facebook.react.ReactApplication;
 import com.github.alinz.reactnativewebviewbridge.WebViewBridgePackage;
+import com.kevinejohn.RNMixpanel.RNMixpanel;
 import io.branch.rnbranch.RNBranchPackage;
 import fr.greweb.reactnativeviewshot.RNViewShotPackage;
 import cl.json.RNSharePackage;
@@ -50,6 +51,7 @@ public class MainApplication extends Application implements ReactApplication, Sh
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
             new WebViewBridgePackage(),
+            new RNMixpanel(),
             new RNBranchPackage(),
             new RNViewShotPackage(),
             new RNSharePackage(),

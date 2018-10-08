@@ -9,6 +9,8 @@ import AddressBookDS from './DataSource/AddressBookDS'
 import UnspendTransactionDS from './DataSource/UnspendTransactionDS'
 import BgJobs from './BackgroundJobs'
 import api from '../api'
+import MixpanelHandler from '../Handler/MixpanelHandler'
+import NotificationStore from './stores/Notification'
 
 class AppState {
   dataVersion = '1'
@@ -33,11 +35,13 @@ class AppState {
     standard: 10,
     fast: 60
   }
+  @observable allowDailyUsage = null
 
   @observable currentCardIndex = 0
   lastestVersionRead = ''
   shouldShowUpdatePopup = true
   homeCarousel = null
+  mixpanleHandler = null
 
   static TIME_INTERVAL = 20000
 
@@ -72,6 +76,15 @@ class AppState {
     this.biometryType = biometryType
     this.save()
   }
+
+  initMixpanel() {
+    this.mixpanleHandler = new MixpanelHandler()
+  }
+
+  syncWalletAddresses() {
+    NotificationStore.addWallets()
+  }
+
   @action setConfig = (cf) => { this.config = cf }
   @action setBackup = (isBackup) => { this.didBackup = isBackup }
   @action setSelectedWallet = (w) => { this.selectedWallet = w }
@@ -115,8 +128,14 @@ class AppState {
     this.currentWalletIndex = index
   }
 
+  @action setAllowDailyUsage(isEnable) {
+    this.allowDailyUsage = isEnable
+    this.save()
+  }
+
   @action setCurrentBTCWalletIndex(index) {
     this.currentBTCWalletIndex = index
+    this.save()
   }
 
   @action async getRateETHDollar() {
@@ -188,6 +207,7 @@ class AppState {
     this.addressBooks = addressBooks
     this.shouldShowUpdatePopup = data.shouldShowUpdatePopup !== undefined ? data.shouldShowUpdatePopup : true
     this.lastestVersionRead = data.lastestVersionRead
+    this.allowDailyUsage = data.allowDailyUsage
 
     await this.loadPendingTxs()
     await this.appWalletsStore.getWalletFromDS()
@@ -263,7 +283,8 @@ class AppState {
       lastestVersionRead: this.lastestVersionRead,
       shouldShowUpdatePopup: this.shouldShowUpdatePopup,
       enableTouchFaceID: this.enableTouchFaceID,
-      biometryType: this.biometryType
+      biometryType: this.biometryType,
+      allowDailyUsage: this.allowDailyUsage
     }
   }
 }

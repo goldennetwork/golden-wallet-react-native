@@ -5,6 +5,7 @@ import * as StoreReview from 'react-native-store-review'
 import constant from '../../../commons/constant'
 import NavStore from '../../../AppStores/NavStore'
 import Router from '../../../AppStores/Router'
+import MixpanelHandler from '../../../Handler/MixpanelHandler'
 
 const store = Platform.OS === 'ios' ? 'App Store' : 'Google Play'
 const PLAY_STORE_LINK = 'market://details?id=io.goldenwallet'
@@ -13,12 +14,18 @@ export default class SettingStore {
   @observable dataCommunity = [
     {
       mainText: 'Telegram Group',
-      onPress: () => { Linking.openURL('https://t.me/goldenwallet') },
+      onPress: () => {
+        MainStore.appState.mixpanleHandler.track(MixpanelHandler.eventName.ACTION_JOIN_TELEGRAM)
+        Linking.openURL('https://t.me/goldenwallet')
+      },
       iconRight: false
     },
     {
       mainText: 'Follow Twitter',
-      onPress: () => { Linking.openURL('https://twitter.com/goldenwallet_io') },
+      onPress: () => {
+        MainStore.appState.mixpanleHandler.track(MixpanelHandler.eventName.ACTION_VIEW_TWITTER)
+        Linking.openURL('https://twitter.com/goldenwallet_io')
+      },
       iconRight: false
     }
     // {
@@ -56,7 +63,10 @@ export default class SettingStore {
     },
     {
       mainText: 'Source Code',
-      onPress: () => { Linking.openURL('https://github.com/goldennetwork/golden-wallet-react-native') },
+      onPress: () => {
+        MainStore.appState.mixpanleHandler.track(MixpanelHandler.eventName.ACTION_VIEW_SOURCE_CODE)
+        Linking.openURL('https://github.com/goldennetwork/golden-wallet-react-native')
+      },
       subText: 'Github'
     },
     {
