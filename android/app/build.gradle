@@ -176,7 +176,7 @@ dependencies {
     implementation project(':react-native-branch')
     implementation project(':react-native-share')
     implementation project(':react-native-view-shot')
-    implementation project(':react-native-webview-bridge')
+    implementation project(':react-native-webview-bridge-updated')
     implementation project(':react-native-shimmer')
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     implementation project(':react-native-touch-id')
