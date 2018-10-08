@@ -51,7 +51,6 @@
 		794461AAFD3E4F6B8077F2EE /* OpenSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1D208E23F3C44836AD43F0B3 /* OpenSans-BoldItalic.ttf */; };
 		7FB47512411240959574FCAD /* CourierNewItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 565CE9C8BFCA4229A9C9F896 /* CourierNewItalic.ttf */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
-		931377B915DD49CD9B63FD5B /* libReact-Native-Webview-Bridge.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C9737BCE0064B01AA29901D /* libReact-Native-Webview-Bridge.a */; };
 		92C273F2215E97BD00B43331 /* libRNMixpanel.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 92C273F1215E97AF00B43331 /* libRNMixpanel.a */; };
 		96C8BA3319FB43F3870A21F1 /* libRNImagePicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F1F7A61159FE49EE9E7AC2C2 /* libRNImagePicker.a */; };
 		A9E3B2EB523245C88417AC62 /* CourierNewBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = ED7DAC2FBAAC441E838C4884 /* CourierNewBold.ttf */; };
@@ -355,12 +354,6 @@
 			remoteGlobalIDString = 134814201AA4EA6300B7C361;
 			remoteInfo = TouchID;
 		};
-		9AD18153215DE5E200F9F82F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2DE089D4BB44402CA87586A4 /* React-Native-Webview-Bridge.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 4114DC4C1C187C3A003CD988;
-			remoteInfo = "React-Native-Webview-Bridge";
 		92C273F0215E97AF00B43331 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 92C273EC215E97AF00B43331 /* RNMixpanel.xcodeproj */;
@@ -513,10 +506,8 @@
 		2D02E47B1E0B4A5D006451C7 /* golden-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "golden-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* golden-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "golden-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		2DE089D4BB44402CA87586A4 /* React-Native-Webview-Bridge.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = "React-Native-Webview-Bridge.xcodeproj"; path = "../node_modules/react-native-webview-bridge-updated/ios/React-Native-Webview-Bridge.xcodeproj"; sourceTree = "<group>"; };
 		2F8D081675B74C009E0789B7 /* libReactNativeNavigation.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libReactNativeNavigation.a; sourceTree = "<group>"; };
 		3C6810EA635048039BF1FC2D /* libRNFIRMessaging.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNFIRMessaging.a; sourceTree = "<group>"; };
-		3C9737BCE0064B01AA29901D /* libReact-Native-Webview-Bridge.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = "libReact-Native-Webview-Bridge.a"; sourceTree = "<group>"; };
 		3CC09BD0951844C28B9D1321 /* libRNStoreReview.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNStoreReview.a; sourceTree = "<group>"; };
 		3F0AF845EE13449180E4FE83 /* libRNKeychain.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNKeychain.a; sourceTree = "<group>"; };
 		404B4D5BE4274BC29D0FA46C /* RNRandomBytes.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNRandomBytes.xcodeproj; path = "../node_modules/react-native-randombytes/RNRandomBytes.xcodeproj"; sourceTree = "<group>"; };
@@ -614,7 +605,6 @@
 				D940A2177018428486711C6B /* libRNStoreReview.a in Frameworks */,
 				B35F9C07E3E84228BFF4B2A7 /* libTouchID.a in Frameworks */,
 				7380862556E45F59D19AE2D5 /* libPods-golden.a in Frameworks */,
-				931377B915DD49CD9B63FD5B /* libReact-Native-Webview-Bridge.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -846,7 +836,6 @@
 				404B4D5BE4274BC29D0FA46C /* RNRandomBytes.xcodeproj */,
 				8E415F1E67F64BDBA5B7BD25 /* SplashScreen.xcodeproj */,
 				AF27543A6DDD46E7863DF508 /* RNStoreReview.xcodeproj */,
-				2DE089D4BB44402CA87586A4 /* React-Native-Webview-Bridge.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -893,14 +882,6 @@
 			children = (
 				9A907154215E3CBB00CA7A89 /* libTouchID.a */,
 			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		9AD18150215DE5E200F9F82F /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				9AD18154215DE5E200F9F82F /* libReact-Native-Webview-Bridge.a */,
-      );
 			name = Products;
 			sourceTree = "<group>";
 		};
@@ -964,7 +945,6 @@
 				F325EF3BFB9D4A8FB2804FD9 /* libRNDeviceInfo-tvOS.a */,
 				19ED4FDA4AB6482FA60F6503 /* libRNRandomBytes-tvOS.a */,
 				2F8D081675B74C009E0789B7 /* libReactNativeNavigation.a */,
-				3C9737BCE0064B01AA29901D /* libReact-Native-Webview-Bridge.a */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -1237,10 +1217,6 @@
 				{
 					ProductGroup = 6F367DEC214A6F8700A10D70 /* Products */;
 					ProjectRef = 6F367DEB214A6F8700A10D70 /* RCTWKWebView.xcodeproj */;
-				},
-				{
-					ProductGroup = 9AD18150215DE5E200F9F82F /* Products */;
-					ProjectRef = 2DE089D4BB44402CA87586A4 /* React-Native-Webview-Bridge.xcodeproj */;
 				},
 				{
 					ProductGroup = 146834001AC3E56700842450 /* Products */;
@@ -1567,13 +1543,6 @@
 			path = libTouchID.a;
 			remoteRef = 9A907153215E3CBB00CA7A89 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		9AD18154215DE5E200F9F82F /* libReact-Native-Webview-Bridge.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = "libReact-Native-Webview-Bridge.a";
-			remoteRef = 9AD18153215DE5E200F9F82F /* PBXContainerItemProxy */;
-      sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		92C273F1215E97AF00B43331 /* libRNMixpanel.a */ = {
 			isa = PBXReferenceProxy;
@@ -1953,7 +1922,6 @@
 					"$(SRCROOT)/../node_modules/react-native-touch-id",
 					"$(SRCROOT)/../node_modules/react-native-wkwebview-reborn/ios/RCTWKWebView",
 					"$(SRCROOT)/../node_modules/react-native-navigation/ios/**",
-					"$(SRCROOT)/../node_modules/react-native-webview-bridge-updated/ios/**",
 				);
 				INFOPLIST_FILE = goldenTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -2017,7 +1985,6 @@
 					"$(SRCROOT)/../node_modules/react-native-touch-id",
 					"$(SRCROOT)/../node_modules/react-native-wkwebview-reborn/ios/RCTWKWebView",
 					"$(SRCROOT)/../node_modules/react-native-navigation/ios/**",
-					"$(SRCROOT)/../node_modules/react-native-webview-bridge-updated/ios/**",
 				);
 				INFOPLIST_FILE = goldenTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -2087,7 +2054,6 @@
 					"$(SRCROOT)/../node_modules/react-native-touch-id",
 					"$(SRCROOT)/../node_modules/react-native-wkwebview-reborn/ios/RCTWKWebView",
 					"$(SRCROOT)/../node_modules/react-native-navigation/ios/**",
-					"$(SRCROOT)/../node_modules/react-native-webview-bridge-updated/ios/**",
 				);
 				INFOPLIST_FILE = golden/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -2135,7 +2101,6 @@
 					"$(SRCROOT)/../node_modules/react-native-touch-id",
 					"$(SRCROOT)/../node_modules/react-native-wkwebview-reborn/ios/RCTWKWebView",
 					"$(SRCROOT)/../node_modules/react-native-navigation/ios/**",
-					"$(SRCROOT)/../node_modules/react-native-webview-bridge-updated/ios/**",
 				);
 				INFOPLIST_FILE = golden/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -2185,7 +2150,6 @@
 					"$(SRCROOT)/../node_modules/react-native-touch-id",
 					"$(SRCROOT)/../node_modules/react-native-wkwebview-reborn/ios/RCTWKWebView",
 					"$(SRCROOT)/../node_modules/react-native-navigation/ios/**",
-					"$(SRCROOT)/../node_modules/react-native-webview-bridge-updated/ios/**",
 				);
 				INFOPLIST_FILE = "golden-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -2258,7 +2222,6 @@
 					"$(SRCROOT)/../node_modules/react-native-touch-id",
 					"$(SRCROOT)/../node_modules/react-native-wkwebview-reborn/ios/RCTWKWebView",
 					"$(SRCROOT)/../node_modules/react-native-navigation/ios/**",
-					"$(SRCROOT)/../node_modules/react-native-webview-bridge-updated/ios/**",
 				);
 				INFOPLIST_FILE = "golden-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -2328,7 +2291,6 @@
 					"$(SRCROOT)/../node_modules/react-native-touch-id",
 					"$(SRCROOT)/../node_modules/react-native-wkwebview-reborn/ios/RCTWKWebView",
 					"$(SRCROOT)/../node_modules/react-native-navigation/ios/**",
-					"$(SRCROOT)/../node_modules/react-native-webview-bridge-updated/ios/**",
 				);
 				INFOPLIST_FILE = "golden-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -2397,7 +2359,6 @@
 					"$(SRCROOT)/../node_modules/react-native-touch-id",
 					"$(SRCROOT)/../node_modules/react-native-wkwebview-reborn/ios/RCTWKWebView",
 					"$(SRCROOT)/../node_modules/react-native-navigation/ios/**",
-					"$(SRCROOT)/../node_modules/react-native-webview-bridge-updated/ios/**",
 				);
 				INFOPLIST_FILE = "golden-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
