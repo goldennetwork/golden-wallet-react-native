@@ -205,9 +205,10 @@ export default class HomeScreen extends Component {
       />
     )
 
-  _gotoCreateWallet = () => {
-    // if (MainStore.appState.wallets.length > 0) return
-    NavStore.pushToScreen('CreateWalletStack')
+  _gotoCreateWallet() {
+    setTimeout(() => {
+      NavStore.pushToScreen('CreateWalletStack')
+    }, 800)
   }
 
   _gotoAppAnalytics() {
@@ -289,7 +290,6 @@ export default class HomeScreen extends Component {
 
   render() {
     const { translateY } = this
-    const { selectedWallet } = MainStore.appState
     const changeOpacityListCoin = translateY.interpolate({
       inputRange: [0, 1],
       outputRange: [1, 0],
