@@ -6,7 +6,6 @@ import CreateWalletStack from './CreateWalletStack'
 import BackupStack from './BackupStack'
 import BackupFinishScreen from '../modules/WalletBackup/screen/BackupFinishScreen'
 import AddressBookStack from './AddressBookStack'
-import EnterNameScreen from '../modules/WalletCreate/screen/EnterNameScreen'
 import NewUpdatedAvailableScreen from '../modules/WalletList/screen/NewUpdatedAvailableScreen'
 import EnraseNotifScreen from '../modules/Unlock/screen/EnraseNotifScreen'
 import SignMessageScreen from './../modules/DAppBrowser/screen/SignMessageScreen'
@@ -56,12 +55,6 @@ const Router = StackNavigator(
     },
     AddressBookStack: {
       screen: AddressBookStack,
-      navigationOptions: {
-        header: null
-      }
-    },
-    EnterNameScreen: {
-      screen: EnterNameScreen,
       navigationOptions: {
         header: null
       }
