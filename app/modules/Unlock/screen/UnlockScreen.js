@@ -71,6 +71,7 @@ export default class UnlockScreen extends Component {
     setTimeout(() => {
       UnlockStore.resetDisable()
       HapticHandler.NotificationSuccess()
+      this.props.navigation.state.params.onUnlock('')
       NavStore.goBack()
     }, 250)
   }
