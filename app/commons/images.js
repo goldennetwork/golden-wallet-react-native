@@ -16,6 +16,7 @@ export default {
   backgroundWhite: require('./../assets/images/background_white.png'),
   imgCardETH: require('./../assets/images/img_card_eth.png'),
   imgCardBTC: require('./../assets/images/img_card_btc.png'),
+  imgCardLTC: require('./../assets/images/img_card_ltc.png'),
   iconQrCode: require('./../assets/images/icon_qr_code.png'),
   iconSend: require('./../assets/images/icon_send.png'),
   iconAdd: require('./../assets/images/icon_add.png'),
@@ -88,5 +89,6 @@ export default {
   iconShare: require('../assets/images/ic_share.png'),
   logoBTC: require('../assets/images/logo_bitcoin.png'),
   logoETH: require('../assets/images/logo_eth.png'),
+  logoLTC: require('../assets/images/logo_litecoin.png'),
   imgAnalytics: require('../assets/images/img_analytics.png')
 }

@@ -24,6 +24,7 @@ class AppState {
   @observable addressBooks = []
   @observable rateETHDollar = new BigNumber(0)
   @observable rateBTCDollar = new BigNumber(0)
+  @observable rateLTCDollar = new BigNumber(0)
   @observable hasPassword = false
   @observable didBackup = false
   currentWalletIndex = 0
@@ -163,6 +164,17 @@ class AppState {
     }, 100)
   }
 
+  @action async getRateLTCDollar() {
+    setTimeout(async () => {
+      const rs = await api.fetchRateLTCDollar()
+      const rate = rs.data && rs.data.RAW && rs.data.RAW.BTC && rs.data.RAW.BTC.USD
+
+      if (rate.PRICE != this.rateBTCDollar) {
+        this.rateLTCDollar = new BigNumber(rate.PRICE)
+      }
+    }, 100)
+  }
+
   @action async getGasPriceEstimate() {
     setTimeout(async () => {
       if (this.config.network === Config.networks.mainnet && this.internetConnection === 'online') {
@@ -219,6 +231,7 @@ class AppState {
 
     this.rateETHDollar = new BigNumber(data.rateETHDollar || 0)
     this.rateBTCDollar = new BigNumber(data.rateBTCDollar || 0)
+    this.rateLTCDollar = new BigNumber(data.rateLTCDollar || 0)
     this.gasPriceEstimate = data.gasPriceEstimate
   }
 
@@ -276,6 +289,7 @@ class AppState {
       hasPassword: this.hasPassword,
       rateETHDollar: this.rateETHDollar.toString(10),
       rateBTCDollar: this.rateBTCDollar.toString(10),
+      rateLTCDollar: this.rateLTCDollar.toString(10),
       currentWalletIndex: this.currentWalletIndex,
       currentBTCWalletIndex: this.currentBTCWalletIndex,
       didBackup: this.didBackup,

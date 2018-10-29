@@ -31,5 +31,8 @@ export default {
   BlockChainInfo: {
     apiURL: () => `https://blockchain.info`,
     webURL: () => `https://www.blockchain.com`
+  },
+  ChainSo: {
+    apiURL: () => `https://chain.so/api/v2`
   }
 }
