@@ -46,7 +46,7 @@ export const fetchWalletBTCInfo = (address) => {
 }
 
 export const fetchWalletLTCInfo = (address) => {
-  const url = `${URL.ChainSo.apiURL()}//get_address_balance/LTC/${address}`
+  const url = `${URL.ChainSo.apiURL()}/get_address_balance/LTC/${address}`
   return caller.get(url, {}, true)
 }
 
