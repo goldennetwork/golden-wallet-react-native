@@ -59,6 +59,7 @@ export default class FrontCard extends Component {
     if (type === 'ethereum') return 'ETH'
     if (type === 'bitcoin') return 'BTC'
     if (type === 'litecoin') return 'LTC'
+    if (type === 'dogecoin') return 'DOGE'
     return 'BTC'
   }
 
@@ -67,6 +68,7 @@ export default class FrontCard extends Component {
     if (type === 'ethereum') return images.imgCardETH
     if (type === 'bitcoin') return images.imgCardBTC
     if (type === 'litecoin') return images.imgCardLTC
+    if (type === 'dogecoin') return images.imgCardDOGE
     return 'BTC'
   }
 
@@ -163,6 +165,7 @@ export default class FrontCard extends Component {
               {
                 marginTop: cardHeight * 0.07,
                 height: cardHeight * 0.31,
+                width: cardWidth / 3,
                 resizeMode: 'contain'
               }
             }

@@ -1,6 +1,7 @@
 import BtcWallet from './Wallet.btc'
 import EthWallet from './Wallet'
 import LtcWallet from './Wallet.ltc'
+import DogeWallet from './Wallet.doge'
 import Keystore from '../../../../Libs/react-native-golden-keystore'
 import WalletDS from '../../DataSource/WalletDS'
 import GetAddress, { chainNames } from '../../../Utils/WalletAddresses'
@@ -23,6 +24,10 @@ export const generateNew = async (secureDS, title, index = 0, path = Keystore.Co
       }, secureDS)
     case chainNames.LTC:
       return new LtcWallet({
+        address, balance: '0', index, title, isFetchingBalance: true
+      }, secureDS)
+    case chainNames.DOGE:
+      return new DogeWallet({
         address, balance: '0', index, title, isFetchingBalance: true
       }, secureDS)
     default:
@@ -94,3 +99,4 @@ export const getWalletsFromMnemonic = async (mnemonic, path = Keystore.CoinType.
 export const BTCWallet = BtcWallet
 export const ETHWallet = EthWallet
 export const LTCWallet = LtcWallet
+export const DOGEWallet = DogeWallet

@@ -36,6 +36,9 @@ class CreateWalletStore {
         } else if (coin === chainNames.LTC) {
           coinPath = Keystore.CoinType.BTC.path
           index = MainStore.appState.currentLTCWalletIndex
+        } else if (coin === chainNames.DOGE) {
+          coinPath = Keystore.CoinType.BTC.path
+          index = MainStore.appState.currentDOGEWalletIndex
         }
         const { title } = this
         generateNew(ds, title, index, coinPath, coin).then(async (w) => {
@@ -50,6 +53,8 @@ class CreateWalletStore {
             MainStore.appState.setCurrentBTCWalletIndex(index + 1)
           } else if (coin === chainNames.LTC) {
             MainStore.appState.setCurrentLTCWalletIndex(index + 1)
+          } else if (coin === chainNames.DOGE) {
+            MainStore.appState.setCurrentDOGEWalletIndex(index + 1)
           }
           MainStore.appState.save()
           MainStore.appState.selectedWallet.fetchingBalance()
