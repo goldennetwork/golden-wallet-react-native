@@ -17,7 +17,8 @@ const marginTop = LayoutUtils.getExtraTop()
 const dataCoin = [
   { imgCoin: images.imgCardBTC, coin: chainNames.BTC },
   { imgCoin: images.imgCardETH, coin: chainNames.ETH },
-  { imgCoin: images.imgCardLTC, coin: chainNames.LTC }
+  { imgCoin: images.imgCardLTC, coin: chainNames.LTC },
+  { imgCoin: images.imgCardDOGE, coin: chainNames.DOGE }
 ]
 @observer
 export default class WalletTypeCreateScreen extends Component {
@@ -37,7 +38,7 @@ export default class WalletTypeCreateScreen extends Component {
       case chainNames.LTC:
         return this.gotoEnterNameLTC()
       case chainNames.DOGE:
-        return this.gotoEnterNameBTC()
+        return this.gotoEnterNameDOGE()
       default: return this.gotoEnterNameBTC()
     }
   }
@@ -78,6 +79,19 @@ export default class WalletTypeCreateScreen extends Component {
     }
     NavStore.pushToScreen('EnterNameScreen', {
       coin: chainNames.BTC
+    })
+  }
+
+  gotoEnterNameDOGE = () => {
+    if (!this.isReady) {
+      return
+    }
+    if (MainStore.appState.config.network !== 'mainnet') {
+      NavStore.popupCustom.show('You need change network to main net to create BTC Wallet')
+      return
+    }
+    NavStore.pushToScreen('EnterNameScreen', {
+      coin: chainNames.DOGE
     })
   }
 

@@ -18,7 +18,8 @@ const marginTop = LayoutUtils.getExtraTop()
 const dataCoin = [
   { imgCoin: images.imgCardBTC, coin: chainNames.BTC },
   { imgCoin: images.imgCardETH, coin: chainNames.ETH },
-  { imgCoin: images.imgCardLTC, coin: chainNames.LTC }
+  { imgCoin: images.imgCardLTC, coin: chainNames.LTC },
+  { imgCoin: images.imgCardDOGE, coin: chainNames.DOGE }
 ]
 
 @observer
@@ -32,7 +33,7 @@ export default class WalletTypeImportScreen extends Component {
       case chainNames.LTC:
         return this.gotoEnterNameLTC()
       case chainNames.DOGE:
-        return this.gotoEnterNameBTC()
+        return this.gotoEnterNameDOGE()
       default: return this.gotoEnterNameBTC()
     }
   }
@@ -64,6 +65,16 @@ export default class WalletTypeImportScreen extends Component {
     }
     NavStore.pushToScreen('ImportWalletScreen', {
       coin: chainNames.LTC
+    })
+  }
+
+  gotoEnterNameDOGE = () => {
+    if (MainStore.appState.config.network !== 'mainnet') {
+      NavStore.popupCustom.show('You need change network to main net to import DOGE Wallet')
+      return
+    }
+    NavStore.pushToScreen('ImportWalletScreen', {
+      coin: chainNames.DOGE
     })
   }
 
