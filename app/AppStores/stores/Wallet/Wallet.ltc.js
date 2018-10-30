@@ -5,7 +5,6 @@ import Keystore from '../../../../Libs/react-native-golden-keystore'
 import api from '../../../api'
 import MainStore from '../../MainStore'
 import WalletTokenLTC from '../WalletToken.ltc'
-import TransactionLTC from '../Transaction.ltc'
 import GetAddress, { chainNames } from '../../../Utils/WalletAddresses'
 
 const defaultObjWallet = {
@@ -72,7 +71,7 @@ export default class WalletLTC extends Wallet {
         this.totalBalance = this.balance
       }
       this.tokens = [this.getTokenLTC()]
-      this.tokens[0].transactions = res.data.txs.map(tx => new TransactionLTC(tx, 1))
+      // this.tokens[0].transactions = res.data.txs.map(tx => new TransactionLTC(tx, 1))
       this.update()
       this.offLoading()
     } catch (e) {
