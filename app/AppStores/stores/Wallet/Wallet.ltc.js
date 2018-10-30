@@ -59,12 +59,13 @@ export default class WalletLTC extends Wallet {
     this.isRefresh = isRefresh
     this.isFetchingBalance = !isRefresh && !isBackground
     try {
-      const res = await api.fetchWalletBTCInfo(this.address)
+      const res = await api.fetchWalletLTCInfo(this.address)
       if (res.status !== 200) {
         this.balance = new BigNumber(`0`)
         this.totalBalance = this.balance
       } else if (res.data) {
-        this.balance = new BigNumber(`${res.data.final_balance}`)
+        const { confirmed_balance, unconfirmed_balance } = res.data.data
+        this.balance = new BigNumber(confirmed_balance).times(new BigNumber('1e+8')).plus(new BigNumber(unconfirmed_balance).times(new BigNumber('1e+8')))
         this.totalBalance = this.balance.times(new BigNumber('1e-8'))
       } else {
         this.balance = new BigNumber(`0`)
@@ -77,6 +78,7 @@ export default class WalletLTC extends Wallet {
     } catch (e) {
       this.offLoading()
     }
+    console.log(this)
   }
 
   @action async implementPrivateKey(secureDS, privateKey, coin = chainNames.LTC) {

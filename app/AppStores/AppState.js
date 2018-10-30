@@ -29,6 +29,7 @@ class AppState {
   @observable didBackup = false
   currentWalletIndex = 0
   currentBTCWalletIndex = 0
+  currentLTCWalletIndex = 0
   @observable internetConnection = 'online' // online || offline
   @observable unpendTransactions = []
   @observable gasPriceEstimate = {
@@ -140,6 +141,11 @@ class AppState {
     this.save()
   }
 
+  @action setCurrentLTCWalletIndex(index) {
+    this.currentLTCWalletIndex = index
+    this.save()
+  }
+
   @action async getRateETHDollar() {
     setTimeout(async () => {
       if (this.internetConnection === 'online') {
@@ -216,6 +222,7 @@ class AppState {
     this.biometryType = data.biometryType || ''
     this.currentWalletIndex = data.currentWalletIndex || 0
     this.currentBTCWalletIndex = data.currentBTCWalletIndex || 0
+    this.currentLTCWalletIndex = data.currentLTCWalletIndex || 0
     const addressBooks = await AddressBookDS.getAddressBooks()
     this.addressBooks = addressBooks
     this.shouldShowUpdatePopup = data.shouldShowUpdatePopup !== undefined ? data.shouldShowUpdatePopup : true

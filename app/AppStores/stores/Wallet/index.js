@@ -1,5 +1,6 @@
 import BtcWallet from './Wallet.btc'
 import EthWallet from './Wallet'
+import LtcWallet from './Wallet.ltc'
 import Keystore from '../../../../Libs/react-native-golden-keystore'
 import WalletDS from '../../DataSource/WalletDS'
 import GetAddress, { chainNames } from '../../../Utils/WalletAddresses'
@@ -11,14 +12,24 @@ export const generateNew = async (secureDS, title, index = 0, path = Keystore.Co
   const { address } = GetAddress(private_key, coin, network)
   secureDS.savePrivateKey(address, private_key)
 
-  if (coin === chainNames.ETH) {
-    return new EthWallet({
-      address, balance: '0', index, title, isFetchingBalance: true
-    }, secureDS)
+  switch (coin) {
+    case chainNames.ETH:
+      return new EthWallet({
+        address, balance: '0', index, title, isFetchingBalance: true
+      }, secureDS)
+    case chainNames.BTC:
+      return new BtcWallet({
+        address, balance: '0', index, title, isFetchingBalance: true
+      }, secureDS)
+    case chainNames.LTC:
+      return new LtcWallet({
+        address, balance: '0', index, title, isFetchingBalance: true
+      }, secureDS)
+    default:
+      return new BtcWallet({
+        address, balance: '0', index, title, isFetchingBalance: true
+      }, secureDS)
   }
-  return new BtcWallet({
-    address, balance: '0', index, title, isFetchingBalance: true
-  }, secureDS)
 }
 
 export const importPrivateKey = (privateKey, title, secureDS, coin = chainNames.ETH, network = 'mainnet') => {
@@ -82,3 +93,4 @@ export const getWalletsFromMnemonic = async (mnemonic, path = Keystore.CoinType.
 
 export const BTCWallet = BtcWallet
 export const ETHWallet = EthWallet
+export const LTCWallet = LtcWallet

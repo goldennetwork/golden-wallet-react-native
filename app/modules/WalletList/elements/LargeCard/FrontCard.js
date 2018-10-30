@@ -56,9 +56,17 @@ export default class FrontCard extends Component {
 
   get symbol() {
     const { type } = this.wallet
-    if (type === 'ethereum') {
-      return 'ETH'
-    }
+    if (type === 'ethereum') return 'ETH'
+    if (type === 'bitcoin') return 'BTC'
+    if (type === 'litecoin') return 'LTC'
+    return 'BTC'
+  }
+
+  get cardImage() {
+    const { type } = this.wallet
+    if (type === 'ethereum') return images.imgCardETH
+    if (type === 'bitcoin') return images.imgCardBTC
+    if (type === 'litecoin') return images.imgCardLTC
     return 'BTC'
   }
 
@@ -154,11 +162,11 @@ export default class FrontCard extends Component {
             style={
               {
                 marginTop: cardHeight * 0.07,
-                width: type === 'ethereum' ? cardHeight * 0.31 * 0.63 : cardHeight * 0.42 * 0.63,
-                height: type === 'ethereum' ? cardHeight * 0.31 : cardHeight * 0.35
+                height: cardHeight * 0.31,
+                resizeMode: 'contain'
               }
             }
-            source={type === 'ethereum' ? images.imgCardETH : images.imgCardBTC}
+            source={this.cardImage}
           />
           <Text style={[styles.balance]}>{balanceSecret}</Text>
           <Text style={[styles.balanceUSD, { marginBottom: 6 }]}>{balanceUSDSecret}</Text>
