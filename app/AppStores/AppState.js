@@ -60,6 +60,7 @@ class AppState {
     Reactions.auto.listenConnection(this)
     this.getRateETHDollar()
     this.getRateBTCDollar()
+    this.getRateLTCDollar()
     this.getGasPriceEstimate()
   }
 

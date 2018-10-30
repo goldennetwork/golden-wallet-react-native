@@ -20,7 +20,6 @@ export default class TransactionBTC extends Transaction {
     this.gasPrice = new BigNumber(`1`)
     this.gasUsed = new BigNumber(`${obj.weight}`)
     this.status = 1
-    this.value = new BigNumber(`0`)
     this.out = obj.out
     this.inputs = obj.inputs
   }

@@ -1,49 +1,58 @@
+import { observable, action } from 'mobx'
 import { BigNumber } from 'bignumber.js'
 import Transaction from './Transaction'
 import MainStore from '../MainStore'
 import constant from '../../commons/constant'
+import API from '../../api'
 
 export default class TransactionLTC extends Transaction {
+  @observable inputs = null
+  @observable outputs = null
+
   walletType = 'litecoin'
 
   constructor(obj, token = {}, status = 1) {
     super(obj, token, status)
     this.rate = MainStore.appState.rateLTCDollar
     this.timeStamp = obj.time
-    this.hash = obj.hash
-    this.from = obj.inputs.map(i => i.prev_out.addr)
-    this.to = obj.out.map(o => o.addr)
+    this.hash = obj.txid
     this.tokenName = 'litecoin'
     this.tokenSymbol = 'LTC'
     this.decimal = 8
-    this.gas = new BigNumber(`${obj.weight}`)
+    this.gas = new BigNumber(`500000`)
     this.gasPrice = new BigNumber(`1`)
-    this.gasUsed = new BigNumber(`${obj.weight}`)
+    this.gasUsed = new BigNumber(`500000`)
     this.status = 1
-    this.value = new BigNumber(`0`)
-    this.out = obj.out
-    this.inputs = obj.inputs
+    this.incoming = obj.incoming
+    this.outgoing = obj.outgoing
+  }
+
+  @action getTxDetail() {
+    if (this.inputs && this.outputs) return
+    API.getTxDetailLtc(this.hash)
+      .then((res) => {
+        const { inputs, outputs } = res.data.data
+        this.inputs = inputs
+        this.outputs = outputs
+      })
+      .catch(e => console.log(e))
   }
 
   get value() {
+    if (this.incoming) return new BigNumber(this.incoming.value).times(new BigNumber('1e+8'))
+    return new BigNumber(this.outgoing.value).times(new BigNumber('1e+8'))
+  }
+
+  get from() {
     const { selectedWallet } = MainStore.appState
-    const address = this.address ? this.address : selectedWallet.address
-    if (this.isSent) {
-      let s = new BigNumber(`0`)
-      for (let i = 0; i < this.inputs.length; i++) {
-        if (address === this.inputs[i].prev_out.addr) {
-          s = s.plus(new BigNumber(`${this.inputs[i].prev_out.value}`))
-        }
-      }
-      return s
-    }
-    let r = new BigNumber(`0`)
-    for (let i = 0; i < this.out.length; i++) {
-      if (address === this.out[i].addr) {
-        r = r.plus(new BigNumber(`${this.out[i].value}`))
-      }
-    }
-    return r
+    if (this.incoming) return this.incoming.inputs.map(i => i.address)
+    return [selectedWallet.address]
+  }
+
+  get to() {
+    const { selectedWallet } = MainStore.appState
+    if (this.outgoing) return this.outgoing.outputs.map(o => o.address)
+    return [selectedWallet.address]
   }
 
   get isSelf() {

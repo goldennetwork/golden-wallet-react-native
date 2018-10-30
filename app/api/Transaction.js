@@ -69,3 +69,7 @@ export const pushTxBTC = (rawTx) => {
   }
   return caller.post(`${URL.BlockChainInfo.apiURL()}/pushtx`, data, false)
 }
+
+export const getTxDetailLtc = (txId) => {
+  return caller.get(`${URL.ChainSo.apiURL()}/tx/LTC/${txId}`)
+}

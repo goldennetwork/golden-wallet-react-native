@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react'
+import React, { Component } from 'react'
 import {
   View,
   StyleSheet,
@@ -8,6 +8,7 @@ import {
   ScrollView,
   SafeAreaView
 } from 'react-native'
+import { observer } from 'mobx-react/native'
 import NavigationHeader from '../../../components/elements/NavigationHeader'
 import images from '../../../commons/images'
 import NavStore from '../../../AppStores/NavStore'
@@ -16,41 +17,47 @@ import AppStyle from '../../../commons/AppStyle'
 import AddressElement from '../../../components/elements/AddressElement'
 import LayoutUtils from '../../../commons/LayoutUtils'
 import Helper from '../../../commons/Helper'
+import Spinner from '../../../components/elements/Spinner'
 
 const { width } = Dimensions.get('window')
 const marginTop = LayoutUtils.getExtraTop()
 
-export default class TransactionMoreDetailScreen extends PureComponent {
+@observer
+export default class TransactionMoreDetailLTCScreen extends Component {
+  componentDidMount() {
+    this.selectedTransaction.getTxDetail()
+  }
+
   get selectedTransaction() {
     return MainStore.appState.selectedTransaction
   }
 
   _onClose = () => NavStore.goBack()
   _renderItemInput = ({ item, index }) => {
-    const { prev_out } = item
-    const { addr, value } = prev_out
-    const valueFormat = Helper.formatETH(value / 100000000, false, 5)
+    const { address, value } = item
+    const valueFormat = Helper.formatETH(value, false, 5)
     return (
       <View style={[styles.containerItem, { marginTop: index === 0 ? 12 : 9 }]}>
-        <AddressElement style={{ width: width * 0.6 }} address={addr} />
+        <AddressElement style={{ width: width * 0.6 }} address={address} />
         <Text style={styles.balance}>{valueFormat}</Text>
       </View>
     )
   }
 
   _renderItemOutput = ({ item, index }) => {
-    const { addr, value } = item
-    const valueFormat = Helper.formatETH(value / 100000000, false, 5)
+    const { address, value } = item
+    const valueFormat = Helper.formatETH(value, false, 5)
     return (
       <View style={[styles.containerItem, { marginTop: index === 0 ? 12 : 9 }]}>
-        <AddressElement style={{ width: width * 0.6 }} address={addr} />
+        <AddressElement style={{ width: width * 0.6 }} address={address} />
         <Text style={styles.balance}>{valueFormat}</Text>
       </View>
     )
   }
 
   render() {
-    const { inputs, out } = this.selectedTransaction
+    const { inputs, outputs } = this.selectedTransaction
+    if (inputs == null || outputs == null) return <Spinner />
     return (
       <SafeAreaView style={styles.container}>
         <NavigationHeader
@@ -75,9 +82,9 @@ export default class TransactionMoreDetailScreen extends PureComponent {
           <View style={styles.line} />
           <FlatList
             style={{ flex: 1, marginBottom: 20 }}
-            data={out}
+            data={outputs}
             scrollEnabled={false}
-            ListHeaderComponent={<Text style={styles.titleText}>{`${out.length} Outputs`}</Text>}
+            ListHeaderComponent={<Text style={styles.titleText}>{`${outputs.length} Outputs`}</Text>}
             showsVerticalScrollIndicator={false}
             keyExtractor={(item, index) => `${index}`}
             renderItem={this._renderItemOutput}

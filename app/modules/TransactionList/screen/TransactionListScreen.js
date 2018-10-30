@@ -40,11 +40,7 @@ export default class TransactionListScreen extends Component {
 
   onPressTxItem = (item) => {
     MainStore.appState.setSelectedTransaction(item)
-    if (item.walletType === 'ethereum') {
-      NavStore.pushToScreen('TransactionDetailScreen')
-    } else if (item.walletType === 'bitcoin') {
-      NavStore.pushToScreen('TransactionBTCDetailScreen')
-    }
+    NavStore.pushToScreen('TransactionDetailScreen')
   }
 
   onRefresh = async () => {
