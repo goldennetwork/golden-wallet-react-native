@@ -25,11 +25,13 @@ class AppState {
   @observable rateETHDollar = new BigNumber(0)
   @observable rateBTCDollar = new BigNumber(0)
   @observable rateLTCDollar = new BigNumber(0)
+  @observable rateDOGEDollar = new BigNumber(0)
   @observable hasPassword = false
   @observable didBackup = false
   currentWalletIndex = 0
   currentBTCWalletIndex = 0
   currentLTCWalletIndex = 0
+  currentDOGEWalletIndex = 0
   @observable internetConnection = 'online' // online || offline
   @observable unpendTransactions = []
   @observable gasPriceEstimate = {
@@ -146,6 +148,11 @@ class AppState {
     this.save()
   }
 
+  @action setCurrentDOGEWalletIndex(index) {
+    this.currentDOGEWalletIndex = index
+    this.save()
+  }
+
   @action async getRateETHDollar() {
     setTimeout(async () => {
       if (this.internetConnection === 'online') {
@@ -177,6 +184,17 @@ class AppState {
 
       if (rate.PRICE != this.rateBTCDollar) {
         this.rateLTCDollar = new BigNumber(rate.PRICE)
+      }
+    }, 100)
+  }
+
+  @action async getRateDOGEDollar() {
+    setTimeout(async () => {
+      const rs = await api.fetchRateDOGEDollar()
+      const rate = rs.data && rs.data.RAW && rs.data.RAW.DOGE && rs.data.RAW.DOGE.USD
+
+      if (rate.PRICE != this.rateBTCDollar) {
+        this.rateDOGEDollar = new BigNumber(rate.PRICE)
       }
     }, 100)
   }
@@ -223,6 +241,7 @@ class AppState {
     this.currentWalletIndex = data.currentWalletIndex || 0
     this.currentBTCWalletIndex = data.currentBTCWalletIndex || 0
     this.currentLTCWalletIndex = data.currentLTCWalletIndex || 0
+    this.currentDOGEWalletIndex = data.currentDOGEWalletIndex || 0
     const addressBooks = await AddressBookDS.getAddressBooks()
     this.addressBooks = addressBooks
     this.shouldShowUpdatePopup = data.shouldShowUpdatePopup !== undefined ? data.shouldShowUpdatePopup : true
@@ -239,6 +258,7 @@ class AppState {
     this.rateETHDollar = new BigNumber(data.rateETHDollar || 0)
     this.rateBTCDollar = new BigNumber(data.rateBTCDollar || 0)
     this.rateLTCDollar = new BigNumber(data.rateLTCDollar || 0)
+    this.rateDOGEDollar = new BigNumber(data.rateDOGEDollar || 0)
     this.gasPriceEstimate = data.gasPriceEstimate
   }
 
@@ -297,6 +317,7 @@ class AppState {
       rateETHDollar: this.rateETHDollar.toString(10),
       rateBTCDollar: this.rateBTCDollar.toString(10),
       rateLTCDollar: this.rateLTCDollar.toString(10),
+      rateDOGEDollar: this.rateDOGEDollar.toString(10),
       currentWalletIndex: this.currentWalletIndex,
       currentBTCWalletIndex: this.currentBTCWalletIndex,
       didBackup: this.didBackup,

@@ -73,3 +73,11 @@ export const fetchRateLTCDollar = () => {
   }
   return caller.get(`${URL.CryptoCompare.apiURL()}/data/pricemultifull`, data, true)
 }
+
+export const fetchRateDOGEDollar = () => {
+  const data = {
+    fsyms: 'DOGE',
+    tsyms: 'BTC,USD,EUR,GBP,AUD,CAD,CNY,JPY,RUB'
+  }
+  return caller.get(`${URL.CryptoCompare.apiURL()}/data/pricemultifull`, data, true)
+}
