@@ -4,7 +4,7 @@ import MainStore from '../MainStore'
 import constant from '../../commons/constant'
 
 export default class TransactionDOGE extends Transaction {
-  walletType = 'litecoin'
+  walletType = 'dogecoin'
 
   constructor(obj, token = {}, status = 1) {
     super(obj, token, status)

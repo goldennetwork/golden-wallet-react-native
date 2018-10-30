@@ -42,6 +42,8 @@ export const importPrivateKey = (privateKey, title, secureDS, coin = chainNames.
       return new BtcWallet(dataWallet, secureDS)
     case chainNames.LTC:
       return new LtcWallet(dataWallet, secureDS)
+    case chainNames.DOGE:
+      return new DogeWallet(dataWallet, secureDS)
     default:
       return new BtcWallet(dataWallet, secureDS)
   }
@@ -58,6 +60,8 @@ export const importAddress = (address, title, secureDS, coin = chainNames.ETH) =
       return new BtcWallet(dataWallet, secureDS)
     case chainNames.LTC:
       return new LtcWallet(dataWallet, secureDS)
+    case chainNames.DOGE:
+      return new DogeWallet(dataWallet, secureDS)
     default:
       return new BtcWallet(dataWallet, secureDS)
   }
@@ -77,6 +81,8 @@ export const unlockFromMnemonic = async (mnemonic, title, index, secureDS, path 
       return new BtcWallet(dataWallet, secureDS)
     case chainNames.LTC:
       return new LtcWallet(dataWallet, secureDS)
+    case chainNames.DOGE:
+      return new DogeWallet(dataWallet, secureDS)
     default:
       return new BtcWallet(dataWallet, secureDS)
   }
@@ -100,6 +106,8 @@ export const getWalletsFromMnemonic = async (mnemonic, path = Keystore.CoinType.
         return new BtcWallet(dataWallet)
       case chainNames.LTC:
         return new LtcWallet(dataWallet)
+      case chainNames.DOGE:
+        return new DogeWallet(dataWallet)
       default:
         return new BtcWallet(dataWallet)
     }

@@ -36,6 +36,15 @@ export default class ManageWalletItem extends Component {
     return MainStore.appState.wallets[index]
   }
 
+  get cardImage() {
+    const { type } = this.wallet
+    if (type === 'ethereum') return images.logoETH
+    if (type === 'bitcoin') return images.logoBTC
+    if (type === 'litecoin') return images.logoLTC
+    if (type === 'dogecoin') return images.logoDOGE
+    return images.logoBTC
+  }
+
   render() {
     const {
       style, index, onPress = () => { }
@@ -43,8 +52,7 @@ export default class ManageWalletItem extends Component {
     const {
       title,
       address,
-      totalBalanceETH,
-      type
+      totalBalanceETH
     } = this.wallet
     const borderBottomWidth = {
       borderBottomWidth: index == 9 ? 0 : 1
@@ -56,7 +64,7 @@ export default class ManageWalletItem extends Component {
         <View style={[styles.container, borderBottomWidth, style]}>
           <View style={{ flexDirection: 'row' }}>
             <Image
-              source={type === 'ethereum' ? images.logoETH : images.logoBTC}
+              source={this.cardImage}
               style={{ marginRight: 10 }}
             />
             <View>

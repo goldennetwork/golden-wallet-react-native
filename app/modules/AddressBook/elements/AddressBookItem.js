@@ -30,11 +30,20 @@ export default class AddressBookItem extends Component {
     return MainStore.appState.addressBooks[index]
   }
 
+  get cardImage() {
+    const { type } = this.wallet
+    if (type === 'ethereum') return images.logoETH
+    if (type === 'bitcoin') return images.logoBTC
+    if (type === 'litecoin') return images.logoLTC
+    if (type === 'dogecoin') return images.logoDOGE
+    return images.logoBTC
+  }
+
   render() {
     const {
       style, action, index
     } = this.props
-    const { title, address, type } = this.addressBook
+    const { title, address } = this.addressBook
 
     return (
       <TouchableWithoutFeedback>
@@ -42,7 +51,7 @@ export default class AddressBookItem extends Component {
           <View style={{ flexDirection: 'row' }}>
             <Image
               style={{ marginRight: 10 }}
-              source={type === 'ethereum' ? images.logoETH : images.logoBTC}
+              source={this.cardImage}
             />
             <View>
               <Text style={styles.name}>{title}</Text>
