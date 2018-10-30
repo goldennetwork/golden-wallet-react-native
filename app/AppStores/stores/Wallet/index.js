@@ -12,67 +12,74 @@ export const generateNew = async (secureDS, title, index = 0, path = Keystore.Co
   const { private_key } = await Keystore.createHDKeyPair(mnemonic, '', path, index)
   const { address } = GetAddress(private_key, coin, network)
   secureDS.savePrivateKey(address, private_key)
-
+  const dataWallet = {
+    address, balance: '0', index, title, isFetchingBalance: true
+  }
   switch (coin) {
     case chainNames.ETH:
-      return new EthWallet({
-        address, balance: '0', index, title, isFetchingBalance: true
-      }, secureDS)
+      return new EthWallet(dataWallet, secureDS)
     case chainNames.BTC:
-      return new BtcWallet({
-        address, balance: '0', index, title, isFetchingBalance: true
-      }, secureDS)
+      return new BtcWallet(dataWallet, secureDS)
     case chainNames.LTC:
-      return new LtcWallet({
-        address, balance: '0', index, title, isFetchingBalance: true
-      }, secureDS)
+      return new LtcWallet(dataWallet, secureDS)
     case chainNames.DOGE:
-      return new DogeWallet({
-        address, balance: '0', index, title, isFetchingBalance: true
-      }, secureDS)
+      return new DogeWallet(dataWallet, secureDS)
     default:
-      return new BtcWallet({
-        address, balance: '0', index, title, isFetchingBalance: true
-      }, secureDS)
+      return new BtcWallet(dataWallet, secureDS)
   }
 }
 
 export const importPrivateKey = (privateKey, title, secureDS, coin = chainNames.ETH, network = 'mainnet') => {
   const { address } = GetAddress(privateKey, coin, network)
   secureDS.savePrivateKey(address, privateKey)
-  if (coin === chainNames.ETH) {
-    return new EthWallet({
-      address, balance: '0', index: -1, external: true, didBackup: true, importType: 'Private Key', isFetchingBalance: true, title
-    }, secureDS)
-  }
-  return new BtcWallet({
+  const dataWallet = {
     address, balance: '0', index: -1, external: true, didBackup: true, importType: 'Private Key', isFetchingBalance: true, title
-  }, secureDS)
+  }
+  switch (coin) {
+    case chainNames.ETH:
+      return new EthWallet(dataWallet, secureDS)
+    case chainNames.BTC:
+      return new BtcWallet(dataWallet, secureDS)
+    case chainNames.LTC:
+      return new LtcWallet(dataWallet, secureDS)
+    default:
+      return new BtcWallet(dataWallet, secureDS)
+  }
 }
 
 export const importAddress = (address, title, secureDS, coin = chainNames.ETH) => {
-  if (coin === chainNames.ETH) {
-    return new EthWallet({
-      address, balance: '0', index: -1, external: true, didBackup: true, importType: 'Address', isFetchingBalance: true, title, canSendTransaction: false
-    }, secureDS)
-  }
-  return new BtcWallet({
+  const dataWallet = {
     address, balance: '0', index: -1, external: true, didBackup: true, importType: 'Address', isFetchingBalance: true, title, canSendTransaction: false
-  }, secureDS)
+  }
+  switch (coin) {
+    case chainNames.ETH:
+      return new EthWallet(dataWallet, secureDS)
+    case chainNames.BTC:
+      return new BtcWallet(dataWallet, secureDS)
+    case chainNames.LTC:
+      return new LtcWallet(dataWallet, secureDS)
+    default:
+      return new BtcWallet(dataWallet, secureDS)
+  }
 }
 
 export const unlockFromMnemonic = async (mnemonic, title, index, secureDS, path = Keystore.CoinType.ETH.path, coin = chainNames.ETH, network = 'mainnet') => {
   const { private_key } = await Keystore.createHDKeyPair(mnemonic, '', path, index)
   const { address } = GetAddress(private_key, coin, network)
   secureDS.savePrivateKey(address, private_key)
-  if (coin === chainNames.ETH) {
-    return new EthWallet({
-      address, balance: '0', index: -1, external: true, didBackup: true, importType: 'Mnemonic', isFetchingBalance: true, title
-    }, secureDS)
-  }
-  return new BtcWallet({
+  const dataWallet = {
     address, balance: '0', index: -1, external: true, didBackup: true, importType: 'Mnemonic', isFetchingBalance: true, title
-  }, secureDS)
+  }
+  switch (coin) {
+    case chainNames.ETH:
+      return new EthWallet(dataWallet, secureDS)
+    case chainNames.BTC:
+      return new BtcWallet(dataWallet, secureDS)
+    case chainNames.LTC:
+      return new LtcWallet(dataWallet, secureDS)
+    default:
+      return new BtcWallet(dataWallet, secureDS)
+  }
 }
 
 export const getWalletAtAddress = async (address) => {
@@ -83,14 +90,19 @@ export const getWalletsFromMnemonic = async (mnemonic, path = Keystore.CoinType.
   const keys = await Keystore.createHDKeyPairs(mnemonic, '', path, from, to)
   const wallets = keys.map((k) => {
     const { address } = GetAddress(k.private_key, coin, network)
-    if (coin === chainNames.ETH) {
-      return new EthWallet({
-        address, balance: '0', index: -1, external: true, didBackup: true, importType: 'Mnemonic', isFetchingBalance: true, title: ''
-      })
-    }
-    return new BtcWallet({
+    const dataWallet = {
       address, balance: '0', index: -1, external: true, didBackup: true, importType: 'Mnemonic', isFetchingBalance: true, title: ''
-    })
+    }
+    switch (coin) {
+      case chainNames.ETH:
+        return new EthWallet(dataWallet)
+      case chainNames.BTC:
+        return new BtcWallet(dataWallet)
+      case chainNames.LTC:
+        return new LtcWallet(dataWallet)
+      default:
+        return new BtcWallet(dataWallet)
+    }
   })
 
   return wallets

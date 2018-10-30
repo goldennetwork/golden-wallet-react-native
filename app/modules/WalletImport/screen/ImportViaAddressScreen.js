@@ -27,7 +27,7 @@ import constant from '../../../commons/constant'
 import ImportAddressStore from '../stores/ImportAddressStore'
 import KeyboardView from '../../../components/elements/KeyboardView'
 import TouchOutSideDismissKeyboard from '../../../components/elements/TouchOutSideDismissKeyboard'
-import MainStore from '../../../AppStores/MainStore';
+import MainStore from '../../../AppStores/MainStore'
 
 const { width } = Dimensions.get('window')
 const marginTop = LayoutUtils.getExtraTop()
@@ -56,34 +56,6 @@ export default class ImportViaAddressScreen extends Component {
     if (content) {
       this.onChangeAddress(content)
     }
-  }
-
-  _renderPasteButton() {
-    return (
-      <View style={{ position: 'absolute', right: 0 }}>
-        <TouchableOpacity
-          onPress={this.onPaste}
-        >
-          <View style={{ padding: 15 }}>
-            <Text style={styles.pasteText}>Paste</Text>
-          </View>
-        </TouchableOpacity>
-      </View>
-    )
-  }
-
-  clearText = () => {
-    this.onChangeAddress('')
-  }
-
-  _renderClearButton() {
-    return (
-      <View style={{ position: 'absolute', right: 15, top: 15 }}>
-        <TouchableOpacity onPress={this.clearText}>
-          <Image source={images.iconCloseSearch} />
-        </TouchableOpacity>
-      </View>
-    )
   }
 
   onChangeName = (text) => {
@@ -130,6 +102,34 @@ export default class ImportViaAddressScreen extends Component {
     const { navigation } = this.props
     const { coin } = navigation.state.params
     NavStore.pushToScreen('EnterNameViaAddress', { coin })
+  }
+
+  _renderPasteButton() {
+    return (
+      <View style={{ position: 'absolute', right: 0 }}>
+        <TouchableOpacity
+          onPress={this.onPaste}
+        >
+          <View style={{ padding: 15 }}>
+            <Text style={styles.pasteText}>Paste</Text>
+          </View>
+        </TouchableOpacity>
+      </View>
+    )
+  }
+
+  clearText = () => {
+    this.onChangeAddress('')
+  }
+
+  _renderClearButton() {
+    return (
+      <View style={{ position: 'absolute', right: 15, top: 15 }}>
+        <TouchableOpacity onPress={this.clearText}>
+          <Image source={images.iconCloseSearch} />
+        </TouchableOpacity>
+      </View>
+    )
   }
 
   render() {
@@ -199,13 +199,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center'
   },
-  titleText: {
-    fontSize: 16,
-    fontFamily: 'OpenSans-Semibold',
-    color: 'white',
-    alignSelf: 'flex-start',
-    marginLeft: 20
-  },
   textInput: {
     height: 182,
     width: width - 40,
@@ -231,5 +224,5 @@ const styles = StyleSheet.create({
     color: AppStyle.mainColor,
     fontFamily: 'OpenSans-Semibold',
     fontSize: 16
-  },
+  }
 })

@@ -62,6 +62,7 @@ class AppState {
     Reactions.auto.listenConnection(this)
     this.getRateETHDollar()
     this.getRateBTCDollar()
+    this.getRateLTCDollar()
     this.getGasPriceEstimate()
   }
 
@@ -180,7 +181,7 @@ class AppState {
   @action async getRateLTCDollar() {
     setTimeout(async () => {
       const rs = await api.fetchRateLTCDollar()
-      const rate = rs.data && rs.data.RAW && rs.data.RAW.BTC && rs.data.RAW.BTC.USD
+      const rate = rs.data && rs.data.RAW && rs.data.RAW.LTC && rs.data.RAW.LTC.USD
 
       if (rate.PRICE != this.rateBTCDollar) {
         this.rateLTCDollar = new BigNumber(rate.PRICE)

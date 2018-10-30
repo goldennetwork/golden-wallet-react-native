@@ -95,7 +95,7 @@ export default class FrontCard extends Component {
       onPress, onLongPress, style, onAddPrivateKey, onBackup, onAlertBackup, onCopy
     } = this.props
     const {
-      title, importType, totalBalanceETH, totalBalanceDollar, isFetchingBalance, isHideValue, type
+      title, importType, totalBalanceETH, totalBalanceDollar, isFetchingBalance, isHideValue
     } = this.wallet
 
     const isHide = isHideValue

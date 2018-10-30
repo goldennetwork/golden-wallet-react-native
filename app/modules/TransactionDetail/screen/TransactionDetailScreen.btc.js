@@ -129,7 +129,11 @@ export default class TransactionBTCDetailScreen extends Component {
   }
 
   _onMorePress = () => {
-    NavStore.pushToScreen('TransactionMoreDetailScreen')
+    if (this.selectedTransaction.walletType === 'bitcoin') {
+      NavStore.pushToScreen('TransactionMoreDetailScreen')
+    } else if (this.selectedTransaction.walletType === 'litecoin') {
+      NavStore.pushToScreen('TransactionMoreDetailLTCScreen')
+    }
   }
 
   renderValue = () => {

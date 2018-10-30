@@ -64,21 +64,20 @@ export default class WalletLTC extends Wallet {
         this.balance = new BigNumber(`0`)
         this.totalBalance = this.balance
       } else if (res.data) {
-        const { confirmed_balance, unconfirmed_balance } = res.data.data
-        this.balance = new BigNumber(confirmed_balance).times(new BigNumber('1e+8')).plus(new BigNumber(unconfirmed_balance).times(new BigNumber('1e+8')))
-        this.totalBalance = this.balance.times(new BigNumber('1e-8'))
+        const { balance } = res.data.data
+        this.balance = new BigNumber(balance).times(new BigNumber('1e-8'))
+        this.totalBalance = new BigNumber(balance)
       } else {
         this.balance = new BigNumber(`0`)
         this.totalBalance = this.balance
       }
       this.tokens = [this.getTokenLTC()]
-      this.tokens[0].transactions = res.data.txs.map(tx => new TransactionLTC(tx, 1))
+      this.tokens[0].transactions = res.data.data.txs.map(tx => new TransactionLTC(tx, 1))
       this.update()
       this.offLoading()
     } catch (e) {
       this.offLoading()
     }
-    console.log(this)
   }
 
   @action async implementPrivateKey(secureDS, privateKey, coin = chainNames.LTC) {
