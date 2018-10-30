@@ -77,7 +77,6 @@ export default class WalletLTC extends Wallet {
     } catch (e) {
       this.offLoading()
     }
-    console.log(this)
   }
 
   @action async implementPrivateKey(secureDS, privateKey, coin = chainNames.LTC) {

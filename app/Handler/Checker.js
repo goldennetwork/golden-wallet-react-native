@@ -4,9 +4,8 @@ class Checker {
   static checkAddress(address, coin) {
     if (coin === chainNames.ETH) {
       return this.checkAddressETH(address)
-    } else if (coin === chainNames.BTC) {
-      return this.checkAddressBTC(address)
     }
+    return this.checkAddressBTC(address)
     // if (address.length !== validateLength) {
     //   return false
     // }

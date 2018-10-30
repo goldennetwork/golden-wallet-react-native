@@ -40,9 +40,9 @@ export default class ChooseAddressItem extends Component {
 
   get symbol() {
     const { type } = this.wallet
-    if (type === 'ethereum') {
-      return 'ETH'
-    }
+    if (type === 'ethereum') return 'ETH'
+    if (type === 'bitcoin') return 'BTC'
+    if (type === 'litecoin') return 'LTC'
     return 'BTC'
   }
 
