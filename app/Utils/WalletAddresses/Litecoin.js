@@ -13,9 +13,7 @@ export default class LitecoinAddress {
 
   get address() {
     const keyPair = new bitcoin.ECPair(bigi.fromHex(this.privateKey), undefined, { network: this.network })
-    const { address } = bitcoin.payments.p2sh({
-      redeem: bitcoin.payments.p2wpkh({ pubkey: keyPair.publicKey })
-    })
+    const { address } = bitcoin.payments.p2pkh({ pubkey: keyPair.publicKey, network: this.network })
     return address
   }
 }
