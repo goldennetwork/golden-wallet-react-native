@@ -102,7 +102,7 @@ export default class SendTransactionScreen extends Component {
           <Image style={styles.exitBtn} source={images.closeButton} resizeMode="contain" />
         </TouchableOpacity>
         <TouchableOpacity
-          disabled={MainStore.appState.selectedWallet.type === 'bitcoin'}
+          disabled={MainStore.appState.selectedWallet.type !== 'ethereum'}
           style={styles.headerTitle}
           onPress={this._onOpenModal}
         >

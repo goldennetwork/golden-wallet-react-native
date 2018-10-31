@@ -17,7 +17,8 @@ class AmountStore {
 
   @computed get amountCrypto() {
     const { selectedWallet, selectedToken } = MainStore.appState
-    if (selectedWallet.type === 'bitcoin') return (selectedWallet.balance.dividedBy(new BigNumber('1.0e+8')))
+    if (selectedWallet.type === 'bitcoin' ||
+      selectedWallet.type === 'litecoin') return (selectedWallet.balance.dividedBy(new BigNumber('1.0e+8')))
     return MainStore.sendTransaction.isToken
       ? (selectedToken.balance.dividedBy(new BigNumber(`1.0e+${selectedToken.decimals}`)))
       : (selectedWallet.balance.dividedBy(new BigNumber('1.0e+18'))) // Big Num
@@ -26,18 +27,26 @@ class AmountStore {
   @computed get rate() {
     const { selectedToken } = MainStore.appState
     const { selectedWallet } = MainStore.appState
-    return selectedWallet.type === 'ethereum'
-      ? MainStore.sendTransaction.isToken ? selectedToken.rate : MainStore.appState.rateETHDollar
-      : MainStore.appState.rateBTCDollar // Big Num
+    if (selectedWallet.type === 'ethereum') {
+      if (MainStore.sendTransaction.isToken) return selectedToken.rate
+      return MainStore.appState.rateETHDollar
+    }
+    if (selectedWallet.type === 'bitcoin') return MainStore.appState.rateBTCDollar
+    if (selectedWallet.type === 'litecoin') return MainStore.appState.rateLTCDollar
+    return MainStore.appState.rateBTCDollar
   }
 
   @computed get postfix() {
     const { selectedToken } = MainStore.appState
     const { selectedWallet } = MainStore.appState
 
-    return selectedWallet.type === 'ethereum'
-      ? MainStore.sendTransaction.isToken ? selectedToken.symbol
-        : 'ETH' : 'BTC' // String
+    if (selectedWallet.type === 'ethereum') {
+      if (MainStore.sendTransaction.isToken) return selectedToken.symbol
+      return 'ETH'
+    }
+    if (selectedWallet.type === 'bitcoin') return 'BTC'
+    if (selectedWallet.type === 'litecoin') return 'LTC'
+    return 'DOGE'
   }
 
   @computed get walletName() {

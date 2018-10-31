@@ -13,7 +13,7 @@ const defaultObjWallet = {
   address: '',
   balance: '0',
   type: 'litecoin',
-  path: Keystore.CoinType.BTC.path,
+  path: Keystore.CoinType.LTC.path,
   external: false,
   didBackup: true,
   index: 0,
@@ -22,7 +22,7 @@ const defaultObjWallet = {
   nonce: 1
 }
 export default class WalletLTC extends Wallet {
-  path = Keystore.CoinType.BTC.path
+  path = Keystore.CoinType.LTC.path
   type = 'litecoin'
   @observable isFetchingBalance = false
   @observable totalBalance = new BigNumber('0')
@@ -61,16 +61,18 @@ export default class WalletLTC extends Wallet {
     try {
       const res = await api.fetchWalletLTCInfo(this.address)
       if (res.status !== 200) {
+        if (this.balance.toString(10) > 0) return
         this.balance = new BigNumber(`0`)
         this.totalBalance = this.balance
       } else if (res.data) {
         const { balance } = res.data.data
-        this.balance = new BigNumber(balance).times(new BigNumber('1e-8'))
+        this.balance = new BigNumber(balance).times(new BigNumber('1e+8'))
         this.totalBalance = new BigNumber(balance)
       } else {
         this.balance = new BigNumber(`0`)
         this.totalBalance = this.balance
       }
+
       this.tokens = [this.getTokenLTC()]
       this.tokens[0].transactions = res.data.data.txs.map(tx => new TransactionLTC(tx, 1))
       this.update()

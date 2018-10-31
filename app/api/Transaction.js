@@ -63,11 +63,20 @@ export const getTxID = (address) => {
   return caller.get(`${URL.BlockChainInfo.apiURL()}/unspent?active=${address}`)
 }
 
+export const getTxIDLTC = (address) => {
+  return caller.get(`${URL.ChainSo.apiURL()}/get_tx_unspent/LTC/${address}`)
+}
+
 export const pushTxBTC = (rawTx) => {
   const data = {
     tx: rawTx
   }
   return caller.post(`${URL.BlockChainInfo.apiURL()}/pushtx`, data, false)
+}
+
+export const pushTxLTC = (rawTx) => {
+  const data = { tx_hex: rawTx }
+  return caller.post(`${URL.ChainSo.apiURL()}/send_tx/LTC`, data, false)
 }
 
 export const getTxDetailLtc = (txId) => {

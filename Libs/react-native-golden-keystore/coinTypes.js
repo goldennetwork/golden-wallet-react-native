@@ -10,6 +10,10 @@ const networks = {
   NEO: {
     name: 'neo',
     path: "m/44'/888'/0'/0/index"
+  },
+  LTC: {
+    name: 'litecoin',
+    path: "m/44'/2'/0'/0/index"
   }
 }
 
