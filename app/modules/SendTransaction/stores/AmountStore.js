@@ -18,7 +18,8 @@ class AmountStore {
   @computed get amountCrypto() {
     const { selectedWallet, selectedToken } = MainStore.appState
     if (selectedWallet.type === 'bitcoin' ||
-      selectedWallet.type === 'litecoin') return (selectedWallet.balance.dividedBy(new BigNumber('1.0e+8')))
+      selectedWallet.type === 'litecoin' ||
+      selectedWallet.type === 'dogecoin') return (selectedWallet.balance.dividedBy(new BigNumber('1.0e+8')))
     return MainStore.sendTransaction.isToken
       ? (selectedToken.balance.dividedBy(new BigNumber(`1.0e+${selectedToken.decimals}`)))
       : (selectedWallet.balance.dividedBy(new BigNumber('1.0e+18'))) // Big Num
@@ -33,6 +34,7 @@ class AmountStore {
     }
     if (selectedWallet.type === 'bitcoin') return MainStore.appState.rateBTCDollar
     if (selectedWallet.type === 'litecoin') return MainStore.appState.rateLTCDollar
+    if (selectedWallet.type === 'dogecoin') return MainStore.appState.rateDOGEDollar
     return MainStore.appState.rateBTCDollar
   }
 
@@ -46,6 +48,7 @@ class AmountStore {
     }
     if (selectedWallet.type === 'bitcoin') return 'BTC'
     if (selectedWallet.type === 'litecoin') return 'LTC'
+    if (selectedWallet.type === 'dogecoin') return 'DOGE'
     return 'DOGE'
   }
 

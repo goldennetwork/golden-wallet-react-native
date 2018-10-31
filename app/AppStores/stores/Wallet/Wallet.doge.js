@@ -59,26 +59,27 @@ export default class WalletDOGE extends Wallet {
     this.isRefresh = isRefresh
     this.isFetchingBalance = !isRefresh && !isBackground
     try {
-      const res = await api.fetchWalletLTCInfo(this.address)
+      const res = await api.fetchWalletDOGEInfo(this.address)
       if (res.status !== 200) {
+        if (this.balance.toString(10) > 0) return
         this.balance = new BigNumber(`0`)
         this.totalBalance = this.balance
       } else if (res.data) {
-        const { confirmed_balance, unconfirmed_balance } = res.data.data
-        this.balance = new BigNumber(confirmed_balance).times(new BigNumber('1e+8')).plus(new BigNumber(unconfirmed_balance).times(new BigNumber('1e+8')))
-        this.totalBalance = this.balance.times(new BigNumber('1e-8'))
+        const { balance } = res.data.data
+        this.balance = new BigNumber(balance).times(new BigNumber('1e+8'))
+        this.totalBalance = new BigNumber(balance)
       } else {
         this.balance = new BigNumber(`0`)
         this.totalBalance = this.balance
       }
+
       this.tokens = [this.getTokenDOGE()]
-      this.tokens[0].transactions = res.data.txs.map(tx => new TransactionDOGE(tx, 1))
+      this.tokens[0].transactions = res.data.data.txs.map(tx => new TransactionDOGE(tx, 1))
       this.update()
       this.offLoading()
     } catch (e) {
       this.offLoading()
     }
-    console.log(this)
   }
 
   @action async implementPrivateKey(secureDS, privateKey, coin = chainNames.DOGE) {

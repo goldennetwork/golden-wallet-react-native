@@ -50,6 +50,11 @@ export const fetchWalletLTCInfo = (address) => {
   return caller.get(url, {}, true)
 }
 
+export const fetchWalletDOGEInfo = (address) => {
+  const url = `${URL.ChainSo.apiURL()}/address/DOGE/${address}`
+  return caller.get(url, {}, true)
+}
+
 export const fetchRateETHDollar = () => {
   const data = {
     fsyms: 'ETH',

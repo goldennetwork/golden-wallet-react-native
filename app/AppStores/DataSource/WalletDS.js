@@ -1,5 +1,5 @@
 import { AsyncStorage } from 'react-native'
-import { ETHWallet, BTCWallet, LTCWallet } from '../stores/Wallet'
+import { ETHWallet, BTCWallet, LTCWallet, DOGEWallet } from '../stores/Wallet'
 import NavStore from '../NavStore'
 import SecureDS from './SecureDS'
 
@@ -16,6 +16,7 @@ class WalletDataSource {
       if (js.type === 'ethereum') return new ETHWallet(js)
       if (js.type === 'bitcoin') return new BTCWallet(js)
       if (js.type === 'litecoin') return new LTCWallet(js)
+      if (js.type === 'dogecoin') return new DOGEWallet(js)
       return new BTCWallet(js)
     })
     return this.wallets

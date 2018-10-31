@@ -31,7 +31,7 @@ export default class AddressBookItem extends Component {
   }
 
   get cardImage() {
-    const { type } = this.wallet
+    const { type } = this.addressBook
     if (type === 'ethereum') return images.logoETH
     if (type === 'bitcoin') return images.logoBTC
     if (type === 'litecoin') return images.logoLTC

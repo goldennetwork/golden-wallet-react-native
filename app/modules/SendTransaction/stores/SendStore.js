@@ -9,6 +9,7 @@ import AddressInputStore from './AddressInputStore'
 import ConfirmStore from './ConfirmStore'
 import ConfirmStoreBTC from './ConfirmStore.btc'
 import ConfirmStoreLTC from './ConfirmStore.ltc'
+import ConfirmStoreDOGE from './ConfirmStore.doge'
 import AdvanceStore from './AdvanceStore'
 import MainStore from '../../../AppStores/MainStore'
 import NavStore from '../../../AppStores/NavStore'
@@ -30,6 +31,7 @@ class SendStore {
   txIDData = []
   completeStep = 0
   txIDLTCData = []
+  txIDDOGEData = []
 
   @observable transaction = {
     gasLimit: new BN('21000'),
@@ -43,6 +45,7 @@ class SendStore {
     if (type === 'ethereum') this.confirmStore = new ConfirmStore()
     if (type === 'bitcoin') this.confirmStore = new ConfirmStoreBTC()
     if (type === 'litecoin') this.confirmStore = new ConfirmStoreLTC()
+    if (type === 'dogecoin') this.confirmStore = new ConfirmStoreDOGE()
     this.advanceStore = new AdvanceStore()
   }
 
@@ -81,12 +84,17 @@ class SendStore {
     this.txIDLTCData = data
   }
 
+  @action setTxIDDOGEData(data) {
+    this.txIDDOGEData = data
+  }
+
   @action goToConfirm() {
     const { selectedWallet } = MainStore.appState
     Keyboard.dismiss()
     if (selectedWallet.type === 'ethereum') return NavStore.pushToScreen('ConfirmScreen')
     if (selectedWallet.type === 'bitcoin') return this.getTxIDBTC()
     if (selectedWallet.type === 'litecoin') return this.getTxIDLTC()
+    if (selectedWallet.type === 'dogecoin') return this.getTxIDDOGE()
     return this.getTxIDBTC()
   }
 
@@ -96,6 +104,20 @@ class SendStore {
       if (res.data && res.data.data && res.data.data.txs.length > 0) {
         MainStore.sendTransaction.setTxIDLTCData(res.data.data.txs)
         MainStore.sendTransaction.confirmStore.setFee(500000)
+        NavStore.hideLoading()
+        NavStore.pushToScreen('ConfirmScreen')
+      } else {
+        NavStore.hideLoading()
+      }
+    })
+  }
+
+  getTxIDDOGE() {
+    NavStore.showLoading()
+    api.getTxIDDOGE(MainStore.appState.selectedWallet.address).then((res) => {
+      if (res.data && res.data.data && res.data.data.txs.length > 0) {
+        MainStore.sendTransaction.setTxIDDOGEData(res.data.data.txs)
+        MainStore.sendTransaction.confirmStore.setFee(100000000)
         NavStore.hideLoading()
         NavStore.pushToScreen('ConfirmScreen')
       } else {
@@ -129,6 +151,11 @@ class SendStore {
         const ds = new SecureDS(pincode)
         if (MainStore.appState.selectedWallet.type === 'litecoin') {
           return this.sendLTC(ds)
+            .then(res => this._onSendSuccess(res))
+            .catch(err => this._onSendFail(err))
+        }
+        if (MainStore.appState.selectedWallet.type === 'dogecoin') {
+          return this.sendDOGE(ds)
             .then(res => this._onSendSuccess(res))
             .catch(err => this._onSendFail(err))
         }
@@ -221,6 +248,59 @@ class SendStore {
           })
         }).catch((err) => {
           this.event(MixpanelHandler.eventName.SEND_FAIL, amount, fee, 'LTC')
+          reject(err)
+        })
+    })
+  }
+
+  sendDOGE(ds) {
+    let amount = parseInt(MainStore.sendTransaction.confirmStore.value.times(new BigNumber(1e+8)).toFixed(0), 10)
+    const toAddress = MainStore.sendTransaction.addressInputStore.address
+    let balance = 0
+    for (let s = 0; s < this.txIDDOGEData.length; s++) {
+      balance += this.txIDDOGEData[s].value * 100000000
+    }
+    const fee = 100000000
+    this.event(MixpanelHandler.eventName.ACTION_SEND, amount, fee, 'DOGE')
+    return new Promise((resolve, reject) => {
+
+      this.getPrivateKey(ds)
+        .then((privateKey) => {
+          const { address: myAddress } = MainStore.appState.selectedWallet
+
+          const mainnet = bitcoin.networks.dogecoin
+          const keyPair = new bitcoin.ECPair(bigi.fromHex(privateKey), undefined, { network: mainnet })
+          const txb = new bitcoin.TransactionBuilder(mainnet)
+
+          for (let ip = 0; ip < this.txIDDOGEData.length; ip++) {
+            txb.addInput(this.txIDDOGEData[ip].txid, this.txIDDOGEData[ip].output_no)
+          }
+
+          const noNeedBack = amount > balance - fee
+          if (noNeedBack) {
+            amount = balance - fee
+          }
+
+          txb.addOutput(toAddress, amount)
+          !noNeedBack && txb.addOutput(myAddress, balance - amount - fee)
+
+          for (let ip = 0; ip < this.txIDDOGEData.length; ip++) {
+            txb.sign(ip, keyPair, null, null, this.txIDDOGEData[ip].value * 100000000)
+          }
+
+          const tx = txb.build()
+       
+          return api.pushTxDOGE(tx.toHex()).then((res) => {
+            if (res.status === 200) {
+              resolve(res.data.data.txid)
+              this.event(MixpanelHandler.eventName.SEND_SUCCESS, amount, fee, 'DOGE')
+            } else {
+              this.event(MixpanelHandler.eventName.SEND_FAIL, amount, fee, 'DOGE')
+              reject(res.data)
+            }
+          })
+        }).catch((err) => {
+          this.event(MixpanelHandler.eventName.SEND_FAIL, amount, fee, 'DOGE')
           reject(err)
         })
     })

@@ -63,6 +63,7 @@ class AppState {
     this.getRateETHDollar()
     this.getRateBTCDollar()
     this.getRateLTCDollar()
+    this.getRateDOGEDollar()
     this.getGasPriceEstimate()
   }
 

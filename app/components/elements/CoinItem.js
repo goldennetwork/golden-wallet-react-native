@@ -37,7 +37,7 @@ export default class CoinItem extends Component {
       <TouchableWithoutFeedback onPress={onPress}>
         <View style={[styles.container, this.marginStyle]}>
           <View style={styles.imgField}>
-            <Image source={imgCoin} style={{ height: 80, resizeMode: 'contain' }} />
+            <Image source={imgCoin} style={{ height: 80, width: 60, resizeMode: 'contain' }} />
           </View>
           <Text style={styles.coin}>{coin}</Text>
         </View>

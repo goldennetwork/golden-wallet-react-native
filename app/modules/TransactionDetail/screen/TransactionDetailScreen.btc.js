@@ -133,6 +133,8 @@ export default class TransactionBTCDetailScreen extends Component {
       NavStore.pushToScreen('TransactionMoreDetailScreen')
     } else if (this.selectedTransaction.walletType === 'litecoin') {
       NavStore.pushToScreen('TransactionMoreDetailLTCScreen')
+    } else if (this.selectedTransaction.walletType === 'dogecoin') {
+      NavStore.pushToScreen('TransactionMoreDetailLTCScreen')
     }
   }
 
