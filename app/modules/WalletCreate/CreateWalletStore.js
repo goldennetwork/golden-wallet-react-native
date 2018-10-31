@@ -34,7 +34,7 @@ class CreateWalletStore {
           coinPath = Keystore.CoinType.BTC.path
           index = MainStore.appState.currentBTCWalletIndex
         } else if (coin === chainNames.LTC) {
-          coinPath = Keystore.CoinType.BTC.path
+          coinPath = Keystore.CoinType.LTC.path
           index = MainStore.appState.currentLTCWalletIndex
         }
         const { title } = this

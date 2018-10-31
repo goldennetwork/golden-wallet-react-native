@@ -43,6 +43,8 @@ export default class ImportMnemonicStore {
       coinPath = KeyStore.CoinType.ETH.path
     } else if (coin === chainNames.BTC) {
       coinPath = KeyStore.CoinType.BTC.path
+    } else if (coin === chainNames.LTC) {
+      coinPath = KeyStore.CoinType.LTC.path
     }
     this.loading = true
     this.mnemonicWallets = await getWalletsFromMnemonic(this.mnemonic, coinPath, 0, 20, coin)
@@ -79,6 +81,8 @@ export default class ImportMnemonicStore {
           coinPath = KeyStore.CoinType.ETH.path
         } else if (coin === chainNames.BTC) {
           coinPath = KeyStore.CoinType.BTC.path
+        } else if (coin === chainNames.LTC) {
+          coinPath = KeyStore.CoinType.LTC.path
         }
 
         const index = this.mnemonicWallets
