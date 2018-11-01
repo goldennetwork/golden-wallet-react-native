@@ -264,6 +264,15 @@ class AppState {
     this.gasPriceEstimate = data.gasPriceEstimate
   }
 
+  @computed get isShowDappButton() {
+    const wallet = this.selectedWallet
+    const idx = this.wallets.length
+    if (this.currentCardIndex !== idx && wallet) {
+      return wallet.type === 'ethereum' && wallet.canSendTransaction
+    }
+    return false
+  }
+
   @computed get isShowSendButton() {
     const idx = this.wallets.length
     const wallet = this.selectedWallet
