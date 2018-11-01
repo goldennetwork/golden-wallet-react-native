@@ -10,12 +10,9 @@ import { hexToString } from '../../../api/ether-json-rpc'
 import NavigationHeader from '../../../components/elements/NavigationHeader'
 import NavStore from '../../../AppStores/NavStore'
 import images from '../../../commons/images'
-import LayoutUtils from '../../../commons/LayoutUtils'
 import MainStore from '../../../AppStores/MainStore'
 import AppStyle from '../../../commons/AppStyle'
 import BottomButton from '../../../components/elements/BottomButton'
-
-const marginTop = LayoutUtils.getExtraTop()
 
 export default class DAppListScreen extends Component {
   static propTypes = {
@@ -41,7 +38,7 @@ export default class DAppListScreen extends Component {
       <SafeAreaView style={styles.container}>
         <View style={styles.container}>
           <NavigationHeader
-            style={{ marginTop: 20 + marginTop }}
+            style={{ marginTop: 20 }}
             headerItem={{
               title: 'Sign Message',
               icon: null,
