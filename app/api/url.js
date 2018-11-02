@@ -34,5 +34,8 @@ export default {
   },
   ChainSo: {
     apiURL: () => `https://chain.so/api/v2`
+  },
+  BlockCypher: {
+    webURL: () => `https://live.blockcypher.com`
   }
 }

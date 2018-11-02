@@ -90,18 +90,17 @@ export default class TransactionBTCDetailScreen extends Component {
 
   get checkURL() {
     const { hash } = this.selectedTransaction
-    const { networkName } = AppState
-    if (this.symbol === 'BTC') {
-      return `${URL.BlockChainInfo.webURL()}/en/btc/tx/${hash}`
-    }
-    return `${URL.EtherScan.webURL(networkName)}/tx/${hash}`
+    if (this.symbol === 'BTC') return `${URL.BlockChainInfo.webURL()}/en/btc/tx/${hash}`
+    if (this.symbol === 'LTC') return `${URL.BlockCypher.webURL()}/ltc/tx/${hash}`
+    if (this.symbol === 'DOGE') return `${URL.BlockCypher.webURL()}/doge/tx/${hash}`
+    return `${URL.BlockChainInfo.webURL()}/en/btc/tx/${hash}`
   }
 
   get textViewDetail() {
     if (this.symbol === 'BTC') {
       return constant.TEXT_VIEW_DETAIL_BTC
     }
-    return constant.TEXT_VIEW_DETAIL_ETH
+    return constant.TEXT_VIEW_DETAIL
   }
 
   get jsCode() {
