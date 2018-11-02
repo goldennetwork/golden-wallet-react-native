@@ -7,6 +7,7 @@ import {
 import PropTypes from 'prop-types'
 import { observer } from 'mobx-react/native'
 import AppStyle from '../../../commons/AppStyle'
+import MainStore from '../../../AppStores/MainStore'
 
 @observer
 export default class HomeDAppButton extends Component {
@@ -20,21 +21,22 @@ export default class HomeDAppButton extends Component {
 
   render() {
     const { onPress } = this.props
-    return (
-      <TouchableOpacity
-        style={styles.browserButton}
-        onPress={onPress}
-      >
-        <Text style={{ color: AppStyle.mainColor, fontFamily: 'OpenSans-Semibold' }}>DApps Browser</Text>
-      </TouchableOpacity>
-    )
+    const { isShowDappButton } = MainStore.appState
+    if (isShowDappButton) {
+      return (
+        <TouchableOpacity
+          style={styles.browserButton}
+          onPress={onPress}
+        >
+          <Text style={{ color: AppStyle.mainColor, fontFamily: 'OpenSans-Semibold' }}>DApps Browser</Text>
+        </TouchableOpacity>
+      )
+    }
+    return null
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
-
-  },
   browserButton: {
     height: 40,
     backgroundColor: '#121734',
