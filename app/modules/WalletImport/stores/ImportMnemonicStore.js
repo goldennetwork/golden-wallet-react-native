@@ -39,17 +39,20 @@ export default class ImportMnemonicStore {
 
   @action async generateWallets(coin = chainNames.ETH) {
     let coinPath = ''
+    let numberOfWallet = 20
     if (coin === chainNames.ETH) {
       coinPath = KeyStore.CoinType.ETH.path
     } else if (coin === chainNames.BTC) {
       coinPath = KeyStore.CoinType.BTC.path
     } else if (coin === chainNames.LTC) {
       coinPath = KeyStore.CoinType.LTC.path
+      numberOfWallet = 4
     } else if (coin === chainNames.DOGE) {
       coinPath = KeyStore.CoinType.BTC.path
+      numberOfWallet = 4
     }
     this.loading = true
-    this.mnemonicWallets = await getWalletsFromMnemonic(this.mnemonic, coinPath, 0, 20, coin)
+    this.mnemonicWallets = await getWalletsFromMnemonic(this.mnemonic, coinPath, 0, numberOfWallet, coin)
     this.loading = false
     return this.mnemonicWallets
   }

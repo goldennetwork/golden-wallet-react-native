@@ -68,9 +68,10 @@ export default class ManageWalletDetailScreen extends Component {
 
   get symbol() {
     const { type } = this.wallet
-    if (type === 'ethereum') {
-      return 'ETH'
-    }
+    if (type === 'ethereum') return 'ETH'
+    if (type === 'bitcoin') return 'BTC'
+    if (type === 'litecoin') return 'LTC'
+    if (type === 'dogecoin') return 'DOGE'
     return 'BTC'
   }
 

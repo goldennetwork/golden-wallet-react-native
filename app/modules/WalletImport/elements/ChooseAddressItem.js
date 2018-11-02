@@ -43,6 +43,7 @@ export default class ChooseAddressItem extends Component {
     if (type === 'ethereum') return 'ETH'
     if (type === 'bitcoin') return 'BTC'
     if (type === 'litecoin') return 'LTC'
+    if (type === 'dogecoin') return 'DOGE'
     return 'BTC'
   }
 
