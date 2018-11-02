@@ -68,7 +68,7 @@ export default class RemoveWalletScreen extends Component {
         if (index < MainStore.appState.wallets.length) {
           MainStore.appState.setSelectedWallet(MainStore.appState.wallets[index])
         }
-        new SecureDS(pincode).removePrivateKey(selectedWallet.address)
+        new SecureDS(pincode).removePrivateKey(this.wallet.address)
         this.hideKeyboard()
         this.props.navigation.state.params.onRemoved()
       }
