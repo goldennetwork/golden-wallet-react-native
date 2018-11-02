@@ -39,13 +39,13 @@ class Checker {
     let regx = ''
     if (coin === chainNames.ETH) {
       regx = /^0x[0-9A-Fa-f]{40}$/
-    } else if (coin === chainNames.BTC) {
-      regx = /^[0-9A-Za-z]{34}$/
+    } else {
+      regx = /^[0-9A-Za-z]{25,34}$/
     }
     return address.match(regx)
   }
   static checkAddressQRBTC(address) {
-    const regx = /[0-9A-Za-z]{34}/
+    const regx = /[0-9A-Za-z]{25,34}/
     return address.match(regx)
   }
   static checkPrivateKey(key) {
