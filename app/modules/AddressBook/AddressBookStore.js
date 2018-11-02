@@ -53,6 +53,12 @@ export default class AddressBookStore {
     if (this.address.length === 34 && this.address.startsWith('3')) {
       return chainNames.BTC
     }
+    if (this.address.length === 34 && this.address.startsWith('L')) {
+      return chainNames.LTC
+    }
+    if (this.address.length === 34 && this.address.startsWith('D')) {
+      return chainNames.DOGE
+    }
     return chainNames.ETH
   }
 
