@@ -39,8 +39,8 @@ export default class TransactionLTC extends Transaction {
   }
 
   get value() {
-    if (this.incoming) return new BigNumber(this.incoming.value).times(new BigNumber('1e+8'))
-    return new BigNumber(this.outgoing.value).times(new BigNumber('1e+8'))
+    if (this.outgoing) return new BigNumber(this.outgoing.outputs[0].value).times(new BigNumber('1e+8'))
+    return new BigNumber(this.incoming.value).times(new BigNumber('1e+8'))
   }
 
   get from() {
