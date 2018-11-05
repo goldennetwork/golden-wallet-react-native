@@ -6,6 +6,7 @@ import constant from '../../../commons/constant'
 import NavStore from '../../../AppStores/NavStore'
 import Router from '../../../AppStores/Router'
 import MixpanelHandler from '../../../Handler/MixpanelHandler'
+import MainStore from '../../../AppStores/MainStore'
 
 const store = Platform.OS === 'ios' ? 'App Store' : 'Google Play'
 const PLAY_STORE_LINK = 'market://details?id=io.goldenwallet'
