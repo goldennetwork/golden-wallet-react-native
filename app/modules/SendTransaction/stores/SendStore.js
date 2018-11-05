@@ -99,6 +99,10 @@ class SendStore {
   }
 
   getTxIDLTC() {
+    if (this.txIDLTCData.length > 0) {
+      NavStore.pushToScreen('ConfirmScreen')
+      return
+    }
     NavStore.showLoading()
     api.getTxIDLTC(MainStore.appState.selectedWallet.address).then((res) => {
       if (res.data && res.data.data && res.data.data.txs.length > 0) {
@@ -113,6 +117,10 @@ class SendStore {
   }
 
   getTxIDDOGE() {
+    if (this.txIDDOGEData.length > 0) {
+      NavStore.pushToScreen('ConfirmScreen')
+      return
+    }
     NavStore.showLoading()
     api.getTxIDDOGE(MainStore.appState.selectedWallet.address).then((res) => {
       if (res.data && res.data.data && res.data.data.txs.length > 0) {
@@ -289,7 +297,7 @@ class SendStore {
           }
 
           const tx = txb.build()
-       
+
           return api.pushTxDOGE(tx.toHex()).then((res) => {
             if (res.status === 200) {
               resolve(res.data.data.txid)
