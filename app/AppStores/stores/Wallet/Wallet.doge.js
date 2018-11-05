@@ -61,6 +61,7 @@ export default class WalletDOGE extends Wallet {
     try {
       const res = await api.fetchWalletDOGEInfo(this.address)
       if (res.status !== 200) {
+        this.offLoading()
         if (this.balance.toString(10) > 0) return
         this.balance = new BigNumber(`0`)
         this.totalBalance = this.balance
