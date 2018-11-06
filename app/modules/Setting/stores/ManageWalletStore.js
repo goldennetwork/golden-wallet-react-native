@@ -149,6 +149,16 @@ export default class ManageWalletStore {
     await MainStore.appState.appWalletsStore.removeOne(wallet)
   }
 
+  getSymbol(type) {
+    switch (type) {
+      case 'ethereum': return 'ETH'
+      case 'bitcoin': return 'BTC'
+      case 'litecoin': return 'LTC'
+      case 'dogecoin': return 'DOGE'
+      default: return 'BTC'
+    }
+  }
+
   @action async implementPrivateKey(selectedWallet, onAdded) {
     NavStore.lockScreen({
       onUnlock: async (pincode) => {
@@ -188,7 +198,7 @@ export default class ManageWalletStore {
     wallet.setEnableNotification(isEnable)
     wallet.update()
     if (isEnable) {
-      const walletType = type === 'ethereum' ? 'ETH' : 'BTC'
+      const walletType = this.getSymbol(type)
       NotificationStore.addWallet(title, address, walletType).then(res => console.log(res))
     } else {
       NotificationStore.removeWallet(address).then(res => console.log(res))

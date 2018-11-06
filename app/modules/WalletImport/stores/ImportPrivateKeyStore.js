@@ -26,6 +26,16 @@ export default class ImportPrivateKeyStore {
     return this.customTitle
   }
 
+  getSymbol(type) {
+    switch (type) {
+      case 'ethereum': return 'ETH'
+      case 'bitcoin': return 'BTC'
+      case 'litecoin': return 'LTC'
+      case 'dogecoin': return 'DOGE'
+      default: return 'BTC'
+    }
+  }
+
   @action async create(coin = chainNames.ETH) {
     NavStore.lockScreen({
       onUnlock: async (pincode) => {
@@ -45,7 +55,7 @@ export default class ImportPrivateKeyStore {
             return
           }
           this.finished = true
-          NotificationStore.addWallet(this.title, w.address, w.type === 'ethereum' ? 'ETH' : 'BTC')
+          NotificationStore.addWallet(this.title, w.address, this.getSymbol(w.type))
           NavStore.showToastTop(`${this.title} was successfully imported!`, {}, { color: AppStyle.colorUp })
 
           await MainStore.appState.appWalletsStore.addOne(w)

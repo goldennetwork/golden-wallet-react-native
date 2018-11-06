@@ -78,6 +78,16 @@ export default class ImportMnemonicStore {
     NavStore.pushToScreen('EnterNameViaMnemonic', { coin })
   }
 
+  getSymbol(type) {
+    switch (type) {
+      case 'ethereum': return 'ETH'
+      case 'bitcoin': return 'BTC'
+      case 'litecoin': return 'LTC'
+      case 'dogecoin': return 'DOGE'
+      default: return 'BTC'
+    }
+  }
+
   @action async unlockWallet(coin = chainNames.ETH) {
     NavStore.lockScreen({
       onUnlock: async (pincode) => {
@@ -102,7 +112,7 @@ export default class ImportMnemonicStore {
 
         const ds = new SecureDS(pincode)
         const wallet = await unlockFromMnemonic(this.mnemonic, title, index, ds, coinPath, coin)
-        NotificationStore.addWallet(title, wallet.address, wallet.type === 'ethereum' ? 'ETH' : 'BTC')
+        NotificationStore.addWallet(title, wallet.address, this.getSymbol(wallet.type))
         NavStore.showToastTop(`${this.title} was successfully imported!`, {}, { color: AppStyle.colorUp })
 
         await MainStore.appState.appWalletsStore.addOne(wallet)

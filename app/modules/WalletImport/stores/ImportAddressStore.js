@@ -28,6 +28,16 @@ export default class ImportAddressStore {
     this.addessWallet = address
   }
 
+  getSymbol(type) {
+    switch (type) {
+      case 'ethereum': return 'ETH'
+      case 'bitcoin': return 'BTC'
+      case 'litecoin': return 'LTC'
+      case 'dogecoin': return 'DOGE'
+      default: return 'BTC'
+    }
+  }
+
   @action async create(title, coin = chainNames.ETH) {
     NavStore.lockScreen({
       onUnlock: async (pincode) => {
@@ -36,7 +46,7 @@ export default class ImportAddressStore {
         const ds = new SecureDS(pincode)
         const { address } = this
         const w = importAddress(address, title, ds, coin)
-        NotificationStore.addWallet(title, w.address, w.type === 'ethereum' ? 'ETH' : 'BTC')
+        NotificationStore.addWallet(title, w.address, this.getSymbol(w.type))
         NavStore.showToastTop(`${title} was successfully imported!`, {}, { color: AppStyle.colorUp })
         await MainStore.appState.appWalletsStore.addOne(w)
         MainStore.appState.autoSetSelectedWallet()
