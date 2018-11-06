@@ -7,6 +7,8 @@ import NotificationDS from '../DataSource/NotificationDS'
 import API from '../../api'
 import Transaction from '../../AppStores/stores/Transaction'
 import TransactionBTC from '../../AppStores/stores/Transaction.btc'
+import TransactionLTC from '../../AppStores/stores/Transaction.ltc'
+import TransactionDOGE from '../../AppStores/stores/Transaction.doge'
 
 class Notification {
   @observable currentNotif = null
@@ -104,7 +106,7 @@ class Notification {
     }
 
     MainStore.appState.setSelectedTransaction(null)
-    if (this.notif.from) {
+    if (this.walletType === 'ETH') {
       const { address, contract } = this.notif
       WalletToken.fetchTokenDetail(address, contract).then(async (token) => {
         const wallet = MainStore.appState.wallets
@@ -115,8 +117,14 @@ class Notification {
         const transaction = new Transaction(this.notif, token, this.notif.status)
         MainStore.appState.setSelectedTransaction(transaction)
       })
-    } else if (this.notif.inputs) {
+    } else if (this.walletType === 'BTC') {
       const transaction = new TransactionBTC(this.notif)
+      MainStore.appState.setSelectedTransaction(transaction)
+    } else if (this.walletType === 'LTC') {
+      const transaction = new TransactionLTC(this.notif)
+      MainStore.appState.setSelectedTransaction(transaction)
+    } else if (this.walletType === 'DOGE') {
+      const transaction = new TransactionDOGE(this.notif)
       MainStore.appState.setSelectedTransaction(transaction)
     }
   }
@@ -128,9 +136,9 @@ class Notification {
       NavStore.popupCustom.show('Wallet not Found')
       return
     }
-    if (this.notif.from) {
+    if (this.walletType === 'ETH') {
       NavStore.pushToScreen('TransactionDetailScreen', { fromNotif: true })
-    } else if (this.notif.inputs) {
+    } else {
       NavStore.pushToScreen('TransactionBTCDetailScreen', { fromNotif: true })
     }
   }
@@ -147,6 +155,12 @@ class Notification {
     return {
       ...tx, content, address: currentNotif.address, contract: currentNotif.contract
     }
+  }
+
+  @computed get walletType() {
+    const { currentNotif } = this
+    if (!currentNotif) return null
+    return currentNotif.walletType
   }
 }
 
