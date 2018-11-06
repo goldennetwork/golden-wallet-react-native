@@ -1,7 +1,7 @@
 export default class CheckBalanceJob {
   appState = null
   jobId = null
-  timeInterval = 20000
+  timeInterval = 60000
   ignoreSelectedWallet = false
 
   constructor(appState, timeInterval = 20000) {
