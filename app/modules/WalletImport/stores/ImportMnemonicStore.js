@@ -17,7 +17,9 @@ export default class ImportMnemonicStore {
   @observable loading = false
   @observable selectedWallet = null
   @observable isErrorMnemonic = false
+  @observable isLoadmore = false
   stopCheckTitle = false
+  page = 1
 
   @action setTitle = (title) => { this.customTitle = title }
   @action onChangeMnemonic = (mn) => {
@@ -39,23 +41,29 @@ export default class ImportMnemonicStore {
 
   @action async generateWallets(coin = chainNames.ETH) {
     let coinPath = ''
-    let numberOfWallet = 20
+    const fromIndex = (this.page - 1) * 4
+    const toWallet = fromIndex + 3
     if (coin === chainNames.ETH) {
       coinPath = KeyStore.CoinType.ETH.path
     } else if (coin === chainNames.BTC) {
       coinPath = KeyStore.CoinType.BTC.path
     } else if (coin === chainNames.LTC) {
       coinPath = KeyStore.CoinType.LTC.path
-      numberOfWallet = 3
     } else if (coin === chainNames.DOGE) {
       coinPath = KeyStore.CoinType.BTC.path
-      numberOfWallet = 3
     }
-    if (this.mnemonicWallets.length > 0) return this.mnemonicWallets
     this.loading = true
-    this.mnemonicWallets = await getWalletsFromMnemonic(this.mnemonic, coinPath, 0, numberOfWallet, coin)
+    const mnemonicWallets = await getWalletsFromMnemonic(this.mnemonic, coinPath, fromIndex, toWallet, coin)
+    this.mnemonicWallets = [...this.mnemonicWallets, ...mnemonicWallets]
+    this.isLoadmore = false
     this.loading = false
     return this.mnemonicWallets
+  }
+
+  @action async loadmore(coin = chainNames.ETH) {
+    this.page += 1
+    this.isLoadmore = true
+    setTimeout(() => this.generateWallets(coin), 1000)
   }
 
   get walletIsExisted() {

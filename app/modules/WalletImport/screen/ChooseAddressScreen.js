@@ -17,6 +17,7 @@ import AppStyle from '../../../commons/AppStyle'
 import MainStore from '../../../AppStores/MainStore'
 import BottomButton from '../../../components/elements/BottomButton'
 import NavStore from '../../../AppStores/NavStore'
+import LoadMoreButton from '../elements/LoadMoreButton'
 
 const marginTop = LayoutUtils.getExtraTop()
 const { width } = Dimensions.get('window')
@@ -39,6 +40,12 @@ export default class ChooseAddressScreen extends Component {
 
   onBack = () => {
     NavStore.goBack()
+  }
+
+  loadmore = () => {
+    const { navigation } = this.props
+    const { coin } = navigation.state.params
+    this.importMnemonicStore.loadmore(coin)
   }
 
   handleSelect = (w) => {
@@ -92,6 +99,7 @@ export default class ChooseAddressScreen extends Component {
             showsHorizontalScrollIndicator={false}
             keyExtractor={(item, index) => `${index}`}
             renderItem={this.renderItem}
+            ListFooterComponent={<LoadMoreButton onPress={this.loadmore} />}
           />
           <BottomButton
             onPress={this.handleUnlock}

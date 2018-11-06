@@ -98,6 +98,10 @@ export default class ImportViaMnemonicScreen extends Component {
     Keyboard.dismiss()
     const { navigation } = this.props
     const { coin } = navigation.state.params
+    if (this.importMnemonicStore.mnemonicWallets.length > 0) {
+      NavStore.pushToScreen('ChooseAddressScreen', { coin })
+      return
+    }
     this.importMnemonicStore.generateWallets(coin)
       .then((res) => {
         NavStore.pushToScreen('ChooseAddressScreen', { coin })
