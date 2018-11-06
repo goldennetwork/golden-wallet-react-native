@@ -46,11 +46,12 @@ export default class ImportMnemonicStore {
       coinPath = KeyStore.CoinType.BTC.path
     } else if (coin === chainNames.LTC) {
       coinPath = KeyStore.CoinType.LTC.path
-      numberOfWallet = 4
+      numberOfWallet = 3
     } else if (coin === chainNames.DOGE) {
       coinPath = KeyStore.CoinType.BTC.path
-      numberOfWallet = 4
+      numberOfWallet = 3
     }
+    if (this.mnemonicWallets.length > 0) return this.mnemonicWallets
     this.loading = true
     this.mnemonicWallets = await getWalletsFromMnemonic(this.mnemonic, coinPath, 0, numberOfWallet, coin)
     this.loading = false
