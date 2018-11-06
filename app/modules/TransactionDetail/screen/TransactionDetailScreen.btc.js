@@ -207,7 +207,7 @@ export default class TransactionBTCDetailScreen extends Component {
       <TransactionDetailItem
         style={{ marginTop: 15 }}
         data={{
-          title: 'Estimate Fee',
+          title: 'Fee',
           subtitle: this.selectedTransaction.feeFormat
         }}
         action={() => { this._onPress(this.selectedTransaction.fee.toString(10), 'Fee') }}

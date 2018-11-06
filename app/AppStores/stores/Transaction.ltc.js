@@ -108,7 +108,7 @@ export default class TransactionLTC extends Transaction {
     if (usd === '0') {
       usdStr = ''
     }
-    return `${this.gasUsed} Satoshi ${usdStr}`
+    return `${this.fee} LTC ${usdStr}`
   }
 
   get balance() {

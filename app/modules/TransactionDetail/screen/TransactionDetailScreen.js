@@ -194,7 +194,7 @@ export default class TransactionDetailScreen extends Component {
       <TransactionDetailItem
         style={{ marginTop: 15 }}
         data={{
-          title: 'Estimate Fee',
+          title: this.selectedTransaction.status === 1 ? 'Fee' : 'Estimate Fee',
           subtitle: this.selectedTransaction.feeFormat
         }}
         action={() => { this._onPress(this.selectedTransaction.fee.toString(10), 'Fee') }}

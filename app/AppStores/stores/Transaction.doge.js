@@ -19,9 +19,9 @@ export default class TransactionDOGE extends Transaction {
     this.tokenName = 'dogecoin'
     this.tokenSymbol = 'DOGE'
     this.decimal = 8
-    this.gas = new BigNumber(`500000`)
+    this.gas = new BigNumber(`100000000`)
     this.gasPrice = new BigNumber(`1`)
-    this.gasUsed = new BigNumber(`500000`)
+    this.gasUsed = new BigNumber(`100000000`)
     this.status = 1
     this.incoming = obj.incoming
     this.outgoing = obj.outgoing
@@ -103,12 +103,12 @@ export default class TransactionDOGE extends Transaction {
   }
 
   get feeFormat() {
-    const usd = this.fee.times(MainStore.appState.rateDOGEDollar).toFixed(2)
+    const usd = this.fee.times(MainStore.appState.rateDOGEDollar).toFixed(3)
     let usdStr = `= $${usd}`
     if (usd === '0') {
       usdStr = ''
     }
-    return `${this.gasUsed} Satoshi ${usdStr}`
+    return `${this.fee} DOGE ${usdStr}`
   }
 
   get balance() {
