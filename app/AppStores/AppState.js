@@ -15,6 +15,7 @@ import NotificationStore from './stores/Notification'
 class AppState {
   dataVersion = '1'
   @observable.ref biometryType = ''
+  notificationState = ''
   @observable enableTouchFaceID = null
   @observable config = new Config('mainnet', Constants.INFURA_API_KEY)
   @observable defaultWallet = null // for web3 dapp
@@ -81,6 +82,11 @@ class AppState {
 
   @action setBiometryType = (biometryType) => {
     this.biometryType = biometryType
+    this.save()
+  }
+
+  setNotificationState = (value) => {
+    this.notificationState = value
     this.save()
   }
 
@@ -239,6 +245,7 @@ class AppState {
     this.hasPassword = data.hasPassword
     this.didBackup = data.didBackup
     this.enableTouchFaceID = data.enableTouchFaceID
+    this.notificationState = data.notificationState || ''
     this.biometryType = data.biometryType || ''
     this.currentWalletIndex = data.currentWalletIndex || 0
     this.currentBTCWalletIndex = data.currentBTCWalletIndex || 0
@@ -313,6 +320,7 @@ class AppState {
   }
 
   save() {
+    console.log(this.toJSON())
     return AppDS.saveAppData(this.toJSON())
   }
 
@@ -337,6 +345,7 @@ class AppState {
       lastestVersionRead: this.lastestVersionRead,
       shouldShowUpdatePopup: this.shouldShowUpdatePopup,
       enableTouchFaceID: this.enableTouchFaceID,
+      notificationState: this.notificationState,
       biometryType: this.biometryType,
       allowDailyUsage: this.allowDailyUsage
     }

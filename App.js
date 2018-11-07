@@ -13,6 +13,8 @@ import {
   NetInfo,
   Platform
 } from 'react-native'
+import NotificationManager from 'react-native-check-notification-enable'
+import Permissions from 'react-native-permissions'
 import TouchID from 'react-native-touch-id'
 import crashlytics from 'react-native-fabric-crashlytics'
 import Router from './app/Router'
@@ -30,6 +32,7 @@ console.ignoredYellowBox = ['Warning: isMounted']
 export default class App extends Component {
   async componentWillMount() {
     await MainStore.startApp()
+    this.checkNotif()
     NetInfo.addEventListener(
       'connectionChange',
       this.handleFirstConnectivityChange
@@ -44,6 +47,7 @@ export default class App extends Component {
   }
 
   async componentDidMount() {
+    // this.checkNotif()
     AppState.addEventListener('change', this._handleAppStateChange)
     crashlytics.init()
     try {
@@ -99,6 +103,7 @@ export default class App extends Component {
     }
     if (this.appState === 'background' && nextAppState === 'active') {
       PushNotificationHelper.resetBadgeNumber()
+      this.checkNotif()
       NavStore.lockScreen({
         onUnlock: () => {
           if (NotificationStore.isOpenFromTray) {
@@ -110,6 +115,26 @@ export default class App extends Component {
       })
     }
     this.appState = nextAppState
+  }
+
+  checkNotif = () => {
+    const { notificationState } = MainStore.appState
+    if (Platform.OS === 'ios') {
+      Permissions.check('notification').then((res) => {
+        if (notificationState != res) {
+          if (res == 'authorized') {
+            NotificationStore.onNotif()
+          } else {
+            NotificationStore.offNotif()
+          }
+          MainStore.appState.setNotificationState(res)
+        }
+      })
+    } else {
+      NotificationManager.areNotificationsEnabled().then((e) => {
+        console.log(e)
+      })
+    }
   }
 
   render() {
