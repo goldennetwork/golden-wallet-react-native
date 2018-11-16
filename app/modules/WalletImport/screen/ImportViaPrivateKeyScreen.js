@@ -18,13 +18,10 @@ import BottomButton from '../../../components/elements/BottomButton'
 import LayoutUtils from '../../../commons/LayoutUtils'
 import images from '../../../commons/images'
 import NavStore from '../../../AppStores/NavStore'
-import Checker from '../../../Handler/Checker'
 import constant from '../../../commons/constant'
 import AppStyle from '../../../commons/AppStyle'
 import Spinner from '../../../components/elements/Spinner'
 import ImportPrivateKeyStore from '../stores/ImportPrivateKeyStore'
-import InputWithAction from '../../../components/elements/InputWithActionItem'
-import commonStyle from '../../../commons/commonStyles'
 import KeyboardView from '../../../components/elements/KeyboardView'
 import TouchOutSideDismissKeyboard from '../../../components/elements/TouchOutSideDismissKeyboard'
 import MainStore from '../../../AppStores/MainStore'
@@ -46,7 +43,6 @@ export default class ImportViaPrivateKeyScreen extends Component {
 
   onChangePrivKey = (text) => {
     this.importPrivateKeyStore.setPrivateKey(text)
-    const { isErrorPrivateKey } = this.importPrivateKeyStore
     // if (isErrorPrivateKey) {
     //   // this.privKeyField.shake()
     // }
@@ -99,8 +95,6 @@ export default class ImportViaPrivateKeyScreen extends Component {
     )
   }
 
-
-
   goToEnterName = () => {
     const { navigation } = this.props
     const { coin } = navigation.state.params
@@ -120,7 +114,7 @@ export default class ImportViaPrivateKeyScreen extends Component {
 
   render() {
     const {
-      privateKey, loading, isErrorPrivateKey, isValidPrivateKey
+      privateKey, loading, isErrorPrivateKey
     } = this.importPrivateKeyStore
     return (
       <SafeAreaView style={{ flex: 1 }}>
@@ -167,7 +161,7 @@ export default class ImportViaPrivateKeyScreen extends Component {
               />
             </KeyboardView>
             <BottomButton
-              disable={!isValidPrivateKey}
+              disable={isErrorPrivateKey}
               onPress={this.goToEnterName}
             />
             {loading &&
@@ -202,13 +196,6 @@ const styles = StyleSheet.create({
     color: AppStyle.mainColor,
     fontFamily: 'OpenSans-Semibold',
     fontSize: 16
-  },
-  titleText: {
-    fontSize: 16,
-    fontFamily: 'OpenSans-Semibold',
-    color: 'white',
-    alignSelf: 'flex-start',
-    marginLeft: 20
   },
   errorText: {
     fontSize: 14,

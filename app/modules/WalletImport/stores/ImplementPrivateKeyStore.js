@@ -18,7 +18,7 @@ export default class ImplementPrivateKeyStore {
       onUnlock: async (pincode) => {
         const coin = selectedWallet.type === 'ethereum' ? chainNames.ETH : chainNames.BTC
         let { privateKey } = this
-        if (coin === chainNames.BTC && Checker.checkWIFBTC(this.privateKey)) {
+        if (coin !== chainNames.ETH && Checker.checkWIFBTC(this.privateKey)) {
           const decode = wif.decode(this.privateKey)
           privateKey = bigi.fromBuffer(decode.privateKey).toString(16)
         }

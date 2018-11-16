@@ -44,9 +44,9 @@ export default class ImportPrivateKeyStore {
 
         try {
           let { privateKey } = this
-          if (coin === chainNames.BTC && Checker.checkWIFBTC(this.privateKey)) {
+          if (coin !== chainNames.ETH && Checker.checkWIFBTC(this.privateKey)) {
             const decode = wif.decode(this.privateKey)
-            privateKey = bigi.fromBuffer(decode.privateKey).toString(16)
+            privateKey = bigi.fromBuffer(decode.privateKey).toString(16).padStart(64, '0')
           }
           const w = importPrivateKey(privateKey, this.title, ds, coin)
           if (this.addressMap[w.address]) {
@@ -67,7 +67,8 @@ export default class ImportPrivateKeyStore {
           if (w.type === 'ethereum') {
             NavStore.pushToScreen('TokenScreen')
           }
-        } catch (_) {
+        } catch (e) {
+          console.log(e)
           this.loading = false
           NavStore.popupCustom.show('Invalid private key.')
         }

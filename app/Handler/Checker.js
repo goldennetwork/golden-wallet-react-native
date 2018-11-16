@@ -49,6 +49,9 @@ class Checker {
     return address.match(regx)
   }
   static checkPrivateKey(key) {
+    if (key.length === 52) {
+      return key.match(/^[0-9A-Za-z]{52}$/)
+    }
     const regx = /^[0-9A-Fa-f]{64}$/
     return key.match(regx)
   }
