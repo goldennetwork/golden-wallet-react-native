@@ -87,7 +87,7 @@ export default class WalletTypeCreateScreen extends Component {
       return
     }
     if (MainStore.appState.config.network !== 'mainnet') {
-      NavStore.popupCustom.show('You need change network to main net to create BTC Wallet')
+      NavStore.popupCustom.show('You need change network to main net to create DOGE Wallet')
       return
     }
     NavStore.pushToScreen('EnterNameScreen', {
